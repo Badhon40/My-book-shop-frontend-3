@@ -2,7 +2,7 @@
 
 An interactive and user-friendly online platform to explore, buy, and manage a collection of books. The application provides a seamless shopping experience, allowing users to browse through various categories, view detailed descriptions, and purchase their favorite books.
 
-
+https://github.com/Badhon40/My-book-shop-frontend-3/blob/main/Screenshot%202025-05-10%20005555.png
 
 ## Features
 
