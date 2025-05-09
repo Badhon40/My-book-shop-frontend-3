@@ -7,7 +7,9 @@ import { useUpdatePasswordMutation } from "../../Redux/Features/Auth/authApi";
 import { useGetOrdersByEmailQuery } from "../../Redux/Features/Orders/Order.api";
 
 export interface IOrder {
-  user?: string;
+  user?: {
+    email: string;
+  };
   products: {
     product: string;
     quantity: number;
@@ -31,7 +33,7 @@ export interface IOrder {
 const UserDashboard = () => {
   const [updatePassword] = useUpdatePasswordMutation();
   const userEmail = useAppSelector((state) => state.auth.user?.email);
-  const { data, isLoading } = useGetOrdersByEmailQuery(undefined);
+  const { data } = useGetOrdersByEmailQuery(undefined);
 
   console.log(data);
   const { register, handleSubmit, reset } = useForm();
@@ -71,7 +73,7 @@ const UserDashboard = () => {
           ></IoMdNotificationsOutline>
           <FiUser
             size={30}
-            className="cursor-pointer text-orange-500 bg-orange-100 rounded"
+            className="cursor-pointer text-[]#4C765E bg-orange-100 rounded"
           ></FiUser>
         </div>
       </div>
@@ -105,14 +107,14 @@ const UserDashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.data.map((orderItem: IOrder, index) => (
+                    {data?.data.map((orderItem: IOrder, index : number) => (
                       // console.log(
                       //   "inside map",
                       //   orderItem.products[0]?.productId?.author
                       // )
                       <tr className="border border-gray-300" key={index}>
-                        <td>{orderItem.products[0]?.productId?.author}</td>
-                        <td>{orderItem.products[0]?.productId?.title}</td>
+                        <td>{orderItem.products[0]?.product}</td>
+                        <td>{orderItem.products[0]?.product}</td>
                         <td>{orderItem?.user?.email}</td>
                         <td>{orderItem?.status}</td>
                         <td>{orderItem.totalPrice}</td>
@@ -173,7 +175,7 @@ const UserDashboard = () => {
 
                   <button
                     type="submit"
-                    className="bg-orange-500 text-white hover:bg-orange-600 w-full text-center font-semibold py-2 rounded-lg mt-3"
+                    className="bg-[]#4C765E text-white hover:bg-[#4C765E] w-full text-center font-semibold py-2 rounded-lg mt-3"
                   >
                     Login
                   </button>

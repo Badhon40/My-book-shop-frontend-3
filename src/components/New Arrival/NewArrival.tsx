@@ -72,7 +72,7 @@ const NewArrival = () => {
             }
             </div>
             <div className="w-full p-5 flex justify-center">
-            <Link to='/allbooks'  className="bg-orange-500 text-white hover:bg-orange-600  text-center font-semibold py-2 px-3 lg:px-6 rounded-lg mt-3">
+            <Link to='/allbooks'  className="bg-[]#4C765E text-white hover:bg-[#4C765E]  text-center font-semibold py-2 px-3 lg:px-6 rounded-lg mt-3">
                 See More
             </Link>
             </div>

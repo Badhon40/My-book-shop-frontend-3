@@ -4,7 +4,7 @@ import { useCreateOrderMutation } from "../../Redux/Features/Orders/Order.api";
 
 const Success = () => {
   const navigate = useNavigate();
-  const [createOrder, { data, error }] = useCreateOrderMutation();
+  const [createOrder] = useCreateOrderMutation();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
@@ -14,7 +14,7 @@ const Success = () => {
     if (sessionId && !orderPlacedRef.current) {
       orderPlacedRef.current = true; // ✅ prevent re-entry
 
-      fetch(`http://localhost:5000/checkout-session/${sessionId}`)
+      fetch(`https://book-shop-backend-rho.vercel.app/checkout-session/${sessionId}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("Checkout session data:", data);

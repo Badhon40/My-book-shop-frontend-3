@@ -4,6 +4,7 @@ import AdminRoutes from "../../Routes/AdminRoutes";
 import UserRoutes from "../../Routes/UserRoute";
 import { IoHomeOutline } from "react-icons/io5";
 import { useAppSelector } from "../../Redux/hook";
+import logo from "../../assets/logo.png";
 
 const userRole = {
   ADMIN: "admin",
@@ -33,7 +34,7 @@ const DashboardLayout = () => {
             <div className="flex justify-center items-center mt-2  ">
               <img
                 className="w-[50%]"
-                src="https://i.ibb.co.com/gbXj6cx9/360-F-211078110-mttx-Edu3gs-Sb-MKajsy98-E4-M4-E5-RUCiuo-removebg-preview.png"
+                src={logo}
                 alt=""
               />
             </div>
@@ -44,7 +45,7 @@ const DashboardLayout = () => {
                 if (!item) return null; // skip undefined
                 return (
                   <div key={index}>
-                    <li className=" bg-orange-50 hover:bg-gray-100 text-orange-500 hover:text-orange-600 font-semibold px-4 py-2 rounded-md ">
+                    <li className=" bg-orange-50 hover:bg-gray-100 text-[]#4C765E hover:text-[#4C765E] font-semibold px-4 py-2 rounded-md ">
                       <NavLink to={`${item.label}`}>{item.key}</NavLink>
                     </li>
                   </div>
@@ -54,7 +55,7 @@ const DashboardLayout = () => {
 
             <div className=" ">
               <ul className="list-none text-lg space-y-3 pt-8 px-2 text-center">
-                <li className=" bg-orange-50 hover:bg-gray-100 text-orange-500 hover:text-orange-600 font-semibold px-4 py-2 rounded-md ">
+                <li className=" bg-orange-50 hover:bg-gray-100 text-[]#4C765E hover:text-[#4C765E] font-semibold px-4 py-2 rounded-md ">
                   <NavLink
                     className={"flex items-center justify-center"}
                     to={`/`}

@@ -7,7 +7,7 @@ import { persistor } from "../../Redux/store";
 
 type TProtectedRoute = {
   children: ReactNode;
-  role: string | undefined;
+  role?: string | string[];
 };
 
 const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
@@ -18,14 +18,20 @@ const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
     return <Navigate to="/login" replace />;
   }
 
-  let user;
+  const user = verifyToken(token);
 
-  if (token) {
-    user = verifyToken(token);
+  // If token is invalid, logout the user
+  if (!user) {
+    dispatch(logout());
+    persistor.purge();
+    return <Navigate to="/login" replace />;
   }
 
+  // Authorization Check
+  const isAuthorized =
+    !role || (Array.isArray(role) ? role.includes(user?.role ?? "") : user?.role === role);
 
-  if (role !== undefined && role !== user?.role) {
+  if (!isAuthorized) {
     dispatch(logout());
     persistor.purge();
     return <Navigate to="/login" replace />;

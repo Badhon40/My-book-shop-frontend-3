@@ -50,14 +50,14 @@ const Reviews = () => {
           {reviews.length > 0 && (
             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-all duration-300">
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-400 to-[#4C765E] flex items-center justify-center text-white font-bold">
                   {reviews[currentIndex]?.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
                   <p className="font-semibold text-gray-800 dark:text-gray-100">
                     {reviews[currentIndex]?.name}
                   </p>
-                  <div className="flex text-orange-500">
+                  <div className="flex text-[]#4C765E">
                     {[...Array(reviews[currentIndex]?.rating)].map((_, i) => (
                       <Star key={i} size={18} fill="currentColor" />
                     ))}
@@ -75,13 +75,13 @@ const Reviews = () => {
               onClick={prevReview}
               className="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-orange-50 dark:hover:bg-gray-700 transition-colors"
             >
-              <ChevronLeft className="w-5 h-5 text-orange-500" />
+              <ChevronLeft className="w-5 h-5 text-[]#4C765E" />
             </button>
             <button
               onClick={nextReview}
               className="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-orange-50 dark:hover:bg-gray-700 transition-colors"
             >
-              <ChevronRight className="w-5 h-5 text-orange-500" />
+              <ChevronRight className="w-5 h-5 text-[]#4C765E" />
             </button>
           </div>
         </div>
@@ -96,14 +96,14 @@ const Reviews = () => {
                   className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg min-w-[350px] max-w-[350px] transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex items-center justify-center text-white text-xl font-bold">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-400 to-[#4C765E] flex items-center justify-center text-white text-xl font-bold">
                       {name.charAt(0).toUpperCase()}
                     </div>
                     <div>
                       <p className="font-semibold text-lg text-gray-800 dark:text-gray-100">
                         {name}
                       </p>
-                      <div className="flex text-orange-500 mt-1">
+                      <div className="flex text-[]#4C765E mt-1">
                         {[...Array(rating)].map((_, i) => (
                           <Star key={i} size={20} fill="currentColor" />
                         ))}

@@ -35,7 +35,7 @@ const BookDetailsSkeleton = () => {
     };
 
     const response = await fetch(
-      "http://localhost:5000/create-checkout-session",
+      "https://book-shop-backend-rho.vercel.app/create-checkout-session",
       {
         method: "POST",
         headers: headers,
@@ -76,21 +76,17 @@ const BookDetailsSkeleton = () => {
           </h2>
           <p className="text-sm text-gray-500 mt-1">by {book?.data?.author}</p>
 
-          {/* <div className="flex items-center gap-2 mt-3">
-            <div className="rating rating-sm">
-              {Array.from({ length: 5 }, (_, i) => (
-                <input
-                  key={i}
-                  type="radio"
-                  name="rating"
-                  className="mask mask-star-2 bg-yellow-400"
-                  checked={i < Math.floor(book.rating)}
-                  readOnly
-                />
-              ))}
-            </div>
-            <span className="text-sm text-gray-600">({book?.rating})</span>
-          </div> */}
+          <div className="mt-4 flex gap-4">
+             <h2 className="text-sm  text-[#4C765E]">
+            {book?.data?.publicationDate || "N/A"}
+          </h2>
+           <h2 className="text-sm text-[#4C765E]">
+            {book?.data?.category || "N/A"}
+          </h2>
+           <h2 className="text-sm text-[#4C765E]">
+            {book?.data?.publisher || "N/A"}
+          </h2>
+          </div>
 
           <p className="mt-4 text-gray-700">{book?.data?.description}</p>
 
