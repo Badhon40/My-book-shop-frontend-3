@@ -29,19 +29,19 @@ export default function Category() {
             <Link
               key={category.name}
               to={`/allbooks?category=${encodeURIComponent(category.name)}`}
-              className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm hover:shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-orange-300"
+              className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm hover:shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#4C765E]  hover:text-white"
             >
               {/* Orange overlay on hover */}
-              <div className="absolute inset-0 bg-orange-500 opacity-0 group-hover:opacity-5 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-[#4C765E] opacity-0 group-hover:opacity-5 transition-opacity duration-300" />
               
               <div className="relative z-10 flex flex-col items-center">
-                <div className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-orange-600 text-white shadow-md group-hover:from-orange-500 group-hover:to-orange-700 transition-all">
+                <div className="w-14 h-14 mb-4 flex items-center justify-center rounded-full bg-gradient-to-br from-[#4C765E] to-[#4C765E] text-white shadow-md group-hover:from-[#4C765E] group-hover:to-[#4C765E] transition-all">
                   {category.icon}
                 </div>
-                <h3 className="text-base font-semibold text-gray-800 dark:text-gray-100  dark:group-hover:text-orange-400 transition-colors text-center">
+                <h3 className="text-base font-semibold text-gray-800  transition-colors text-center">
                   {category.name}
                 </h3>
-                <div className="mt-2 flex items-center text-sm text-orange-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="mt-2 flex items-center text-sm text-[#4C765E] opacity-0 group-hover:opacity-100 transition-opacity">
                   Browse <ChevronRight className="w-4 h-4 ml-1" />
                 </div>
               </div>

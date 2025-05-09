@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import errorbook from "../../assets/4735.jpg";
 
 export type TBook = {
   _id: string;
@@ -18,29 +19,26 @@ const BookCard = ({ book }: BookCardProps) => {
   return (
     <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-400">
       {/* Image Container */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
         <img
-          src={
-            book.image ||
-            "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg"
-          }
+          src={book.image}
           alt={book.title}
+          loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          onError={(e) => (e.currentTarget.src = errorbook)}
         />
 
         {/* Stock Status Badge */}
         <span
           className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full shadow-md ${
-            book.inStock
-              ? "bg-green-500/90 text-white"
-              : "bg-red-500/90 text-white"
-          }`}
+            book.inStock ? "bg-green-500/90" : "bg-red-500/90"
+          } text-white`}
         >
           {book.inStock ? "Available" : "Sold Out"}
         </span>
 
         {/* Price Tag */}
-        <div className="absolute bottom-3 left-3 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+        <div className="absolute bottom-3 left-3 bg-[#4C765E] text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
           ${book.price.toFixed(2)}
         </div>
       </div>
@@ -52,7 +50,7 @@ const BookCard = ({ book }: BookCardProps) => {
             {book.title}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-            by {book.author}
+            by {book.author || "N/A"}
           </p>
         </div>
 
@@ -61,27 +59,16 @@ const BookCard = ({ book }: BookCardProps) => {
             {book.category}
           </span>
 
-          <Link
+         
+        </div>
+         <Link
             to={`/allbooks/${book._id}`}
-            className="text-orange-500 hover:text-orange-600 dark:hover:text-orange-400 font-medium text-sm flex items-center transition-colors"
+            className="text-[#4C765E] hover:text-[#4C765E]  font-medium text-sm flex items-center transition-colors"
+            role="button"
           >
             View Details
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 ml-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+
           </Link>
-        </div>
       </div>
     </div>
   );

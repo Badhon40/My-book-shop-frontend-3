@@ -91,7 +91,7 @@
   height: 40px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-bottom-color: #ff3d00;
+  border-bottom-color: #4C765E;
 }
 
 @keyframes rotation {
@@ -104,12 +104,12 @@
 }
 
 .custom-btn {
-  @apply text-[#e12503] font-semibold text-sm   leading-6 border-none bg-red-50 hover:bg-red-100 duration-500 shadow-md;
+  @apply text-[#4C765E] font-semibold text-sm   leading-6 border-none bg-red-50 hover:bg-red-100 duration-500 shadow-md;
 }
 
 .custom-btn:hover {
   background-color: #fed7d7 !important;
-  color: #e12503 !important;
+  color: #4C765E!important;
 }
 
 @keyframes fadeIn {
@@ -132,7 +132,7 @@
 
 .ant-menu-item-selected {
   background-color: #f1eaea !important; /* Custom background for selected */
-  color: #e12503 !important;
+  color: #4C765E !important;
   font-weight: bold !important;
   border-radius: 8px !important;
 }

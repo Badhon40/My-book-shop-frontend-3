@@ -7,6 +7,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hook";
 import { logout } from "../../../Redux/Features/Auth/authSlice";
 import { persistor } from "../../../Redux/store";
+import logo from "../../../assets/logo.png";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -38,7 +39,7 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center" onClick={closeMobileMenu}>
               <img
-                src="https://i.ibb.co.com/q3t1CR0Z/360-F-211078110-mttx-Edu3gs-Sb-MKajsy98-E4-M4-E5-RUCiuo-removebg-preview.png"
+                src={logo}
                 alt="Logo"
                 className="h-14 w-auto"
               />
@@ -52,10 +53,10 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-4 py-2 rounded-md text-md font-medium transition-colors duration-300 ${
+                  `px-4 py-2 rounded-md text-lg font-medium transition-colors duration-300 ${
                     isActive
-                      ? "underline bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400"
-                      : "text-gray-700 hover:bg-orange-50 hover:text-orange-500 dark:text-gray-300 dark:hover:bg-gray-800"
+                      ? "underline text-[#4C765E]"
+                      : "text-gray-700"
                   }`
                 }
               >
@@ -70,7 +71,7 @@ const Navbar = () => {
               <div className="relative group hidden md:block">
                 <button className="flex items-center space-x-2 focus:outline-none">
                   <Avatar
-                    className="bg-orange-500 hover:bg-orange-600 transition-colors"
+                    className="bg-[#51c081] hover:bg-[#4C765E] transition-colors"
                     icon={<UserOutlined />}
                   />
                 </button>
@@ -79,13 +80,13 @@ const Navbar = () => {
                 <div className="absolute right-0 mt-2 w-48 origin-top-right bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 dark:bg-gray-800 dark:ring-gray-700">
                   <Link
                     to={`/${user?.role}/dashboard`}
-                    className="block px-4 py-2 text-md text-gray-700 hover:bg-orange-50 hover:text-orange-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="block px-4 py-2 text-md text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-md text-gray-700 hover:bg-orange-50 hover:text-orange-600 flex items-center gap-2 dark:text-gray-300 dark:hover:bg-gray-700"
+                    className="w-full text-left px-4 py-2 text-md text-gray-700 bg-[#51c081] hover:bg-[#4C765E] flex items-center gap-2"
                   >
                     <LogOut size={16} />
                     <span>Log out</span>
@@ -95,7 +96,7 @@ const Navbar = () => {
             ) : (
               <Link
                 to="/login"
-                className="hidden md:block px-4 py-2 rounded-md text-md font-medium text-gray-700 bg-gray-100 border-2 border-gray-300 hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300 dark:text-gray-300 dark:hover:bg-gray-800"
+                className="hidden md:block px-4 py-2 rounded-md text-md font-medium bg-[#51c081] hover:bg-[#4C765E] border-2"
               >
                 Login
               </Link>
@@ -103,7 +104,7 @@ const Navbar = () => {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2 rounded-md text-gray-700 hover:bg-orange-50 hover:text-orange-600 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
+              className="md:hidden p-2 rounded-md text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -122,8 +123,8 @@ const Navbar = () => {
               className={({ isActive }) =>
                 `block px-3 py-2 rounded-md text-base font-medium ${
                   isActive
-                    ? "bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400"
-                    : "text-gray-700 hover:bg-orange-50 hover:text-orange-500 dark:text-gray-300 dark:hover:bg-gray-800"
+                    ? "bg-orange-100 text-[#4C765E] dark:bg-orange-900/30 dark:text-orange-400"
+                    : "text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] dark:text-gray-300 dark:hover:bg-gray-800"
                 }`
               }
               onClick={closeMobileMenu}
@@ -135,14 +136,14 @@ const Navbar = () => {
             <>
               <Link
                 to={`/${user?.role}/dashboard`}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-500 dark:text-gray-300 dark:hover:bg-gray-800"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] dark:text-gray-300 dark:hover:bg-gray-800"
                 onClick={closeMobileMenu}
               >
                 Dashboard
               </Link>
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-500 flex items-center gap-2 dark:text-gray-300 dark:hover:bg-gray-800"
+                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] flex items-center gap-2 dark:text-gray-300 dark:hover:bg-gray-800"
               >
                 <LogOut size={16} />
                 <span>Log out</span>
@@ -152,7 +153,7 @@ const Navbar = () => {
           {!user?.email && (
             <Link
               to="/login"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-orange-500 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] dark:text-gray-300 dark:hover:bg-gray-800"
               onClick={closeMobileMenu}
             >
               Login

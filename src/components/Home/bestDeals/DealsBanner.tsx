@@ -18,7 +18,7 @@ const DealsBanner = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white p-10   text-center">
+    <div className="bg-gradient-to-r from-[#49785d] to-[#5f8e73] text-white p-10 mt-4  text-center">
       <h2 className="text-3xl md:text-5xl font-bold mb-4">
         🔥 Mega Book Sale!
       </h2>

@@ -71,7 +71,7 @@ const BookDetailsSkeleton = () => {
         </div>
 
         <div className="flex-1">
-          <h2 className="text-3xl font-bold text-orange-600">
+          <h2 className="text-3xl font-bold text-[#4C765E]">
             {book?.data?.title}
           </h2>
           <p className="text-sm text-gray-500 mt-1">by {book?.data?.author}</p>
@@ -95,7 +95,7 @@ const BookDetailsSkeleton = () => {
           <p className="mt-4 text-gray-700">{book?.data?.description}</p>
 
           <div className="mt-6">
-            <span className="text-2xl font-bold text-orange-600">
+            <span className="text-2xl font-bold text-[#4C765E]">
               ${book?.data?.price}
             </span>
           </div>
@@ -103,7 +103,7 @@ const BookDetailsSkeleton = () => {
           <div className="mt-4 flex gap-4">
             <button
               onClick={makePayment}
-              className="btn btn-primary bg-orange-600 border-none hover:bg-orange-700"
+              className="btn btn-primary bg-[#4C765E] border-none hover:bg-[#477059]"
             >
               Order Now
             </button>
