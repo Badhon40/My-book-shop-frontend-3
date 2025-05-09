@@ -68,11 +68,11 @@ STRIPE_SECRET_KEY=your-stripe-secret-key
 
 ## API Endpoints
 
-* `GET /api/books` - Get all books
-* `GET /api/books/:id` - Get book details by ID
-* `POST /api/auth/register` - Register a new user
-* `POST /api/auth/login` - Log in as an existing user
-* `POST /api/orders` - Place a new order
+* `GET /api/v1/books` - Get all books
+* `GET /api/v1/books/:id` - Get book details by ID
+* `POST /api/v1/auth/register` - Register a new user
+* `POST /api/v1/auth/login` - Log in as an existing user
+* `POST /api/v1/orders` - Place a new order
 
 ## Contributing
 
@@ -86,8 +86,8 @@ This project is licensed under the MIT License.
 
 For any inquiries or feedback, feel free to reach out:
 
-* **Email:** [your-email@example.com](badhonraniroy@gmail.com)
-* **GitHub:** [your-username](https://github.com/Badhon40)
+* **Email:**(badhonraniroy@gmail.com)
+* **GitHub:**(https://github.com/Badhon40)
 
 ---
 
