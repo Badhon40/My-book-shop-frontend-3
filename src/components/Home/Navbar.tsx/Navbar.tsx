@@ -9,6 +9,7 @@ import { logout } from "../../../Redux/Features/Auth/authSlice";
 import { persistor } from "../../../Redux/store";
 import logo from "../../../assets/logo.png";
 
+
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const user = useAppSelector((state) => state.auth.user);
@@ -25,6 +26,8 @@ const Navbar = () => {
     { path: "/", label: "Home" },
     { path: "/allbooks", label: "All Books" },
     { path: "/about", label: "About" },
+    {path: "/contact", label: "Contact"},
+    {path : "/faq", label: "FAQ"},
   ];
 
   const closeMobileMenu = () => {
