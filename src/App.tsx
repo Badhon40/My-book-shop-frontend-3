@@ -3,15 +3,13 @@
 // import Navbar from "./components/Navbar.tsx/Navbar";
 // import NewArrival from "./components/New Arrival/NewArrival";
 
-import Reviews from "./components/Reviews/Reviews";
-
 function App() {
   return (
     <div className="relative min-h-screen">
       {/* <Navbar /> */}
       {/* <Banner /> */}
       {/* <NewArrival /> */}
-      <Reviews />
+      {/* <Reviews /> */}
       {/* <Footer /> */}
       
     </div>

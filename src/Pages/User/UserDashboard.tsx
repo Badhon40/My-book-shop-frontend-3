@@ -6,22 +6,10 @@ import { toast } from "sonner";
 import { useUpdatePasswordMutation } from "../../Redux/Features/Auth/authApi";
 import { useGetOrdersByEmailQuery } from "../../Redux/Features/Orders/Order.api";
 
-export interface IProduct {
-  _id: string;
-  title: string;
-  author: string;
-  // Add more product fields if needed
-}
-export interface IUser {
-  _id: string;
-  email: string;
-  name: string;
-  // Add more fields if needed
-}
 export interface IOrder {
-  user?: IUser;
+  user?: string;
   products: {
-    productId: IProduct;
+    product: string;
     quantity: number;
   }[];
   totalPrice: number;
@@ -43,7 +31,7 @@ export interface IOrder {
 const UserDashboard = () => {
   const [updatePassword] = useUpdatePasswordMutation();
   const userEmail = useAppSelector((state) => state.auth.user?.email);
-  const { data } = useGetOrdersByEmailQuery(undefined);
+  const { data, isLoading } = useGetOrdersByEmailQuery(undefined);
 
   console.log(data);
   const { register, handleSubmit, reset } = useForm();
@@ -117,10 +105,14 @@ const UserDashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.data.map((orderItem: IOrder,index:number) => (
+                    {data?.data.map((orderItem: IOrder, index) => (
+                      // console.log(
+                      //   "inside map",
+                      //   orderItem.products[0]?.productId?.author
+                      // )
                       <tr className="border border-gray-300" key={index}>
-                        <td>{orderItem.products[0]?.productId?.author }</td>
-                        <td>{orderItem.products[0]?.productId?.title }</td>
+                        <td>{orderItem.products[0]?.productId?.author}</td>
+                        <td>{orderItem.products[0]?.productId?.title}</td>
                         <td>{orderItem?.user?.email}</td>
                         <td>{orderItem?.status}</td>
                         <td>{orderItem.totalPrice}</td>
@@ -164,7 +156,7 @@ const UserDashboard = () => {
                     placeholder="Email"
                     defaultValue={userEmail}
                   />
-                  <label className="fieldset-label">Password</label>
+                  <label className="fieldset-label">Old Password</label>
                   <input
                     {...register("password")}
                     type="password"

@@ -6,6 +6,7 @@ import Filter from "../../../components/filter/Filter";
 import { BsFilter } from "react-icons/bs";
 import { useGetAllbooksQuery } from "../../../Redux/Features/Admin/UserManagementApi/bookManagement.api";
 import Loader from "../../../components/loader/Loader";
+import { useSearchParams } from "react-router-dom";
 
 
 
@@ -16,10 +17,14 @@ const AllBooks = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [filterParams, setFilterParams] = useState([]);
   const [search, setSearch] = useState("");
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
 
   const { data: allBook, isLoading } = useGetAllbooksQuery([
     ...filterParams,
     { name: "searchTerm", value: `${search}` },
+    ...(category ? [{ name: "category", value: category }] : []),
+
   ]);
   console.log("allbooks", allBook);
 
@@ -47,7 +52,7 @@ const AllBooks = () => {
   };
   return (
     <div className="bg-gray-100">
-      <div className="  lg:max-w-[80%] mx-4 md:mx-6 lg:mx-auto py-4 lg:py-14 ">
+      <div className="  lg:max-w-[90%] mx-4 md:mx-6 lg:mx-auto py-4 lg:py-14 ">
         <div className="flex justify-center">
           <input
             onChange={handleSeach}
@@ -86,7 +91,7 @@ const AllBooks = () => {
             <Filter setFilterParams={setFilterParams} />
           </div>
           <div className="col-span-4">
-            <div className="grid  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {currentBooks.map((book: any) => (
                 <BookCard key={book._id} book={book} />
               ))}

@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/allbooks/:bookId",
-        element: <ProtectedRoute role={["user", "admin"]}><BookDetailsSkeleton /></ProtectedRoute>,
+        element: <BookDetailsSkeleton />,
       },
       {
         path: "/about",

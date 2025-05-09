@@ -16,35 +16,70 @@ type BookCardProps = {
 
 const BookCard = ({ book }: BookCardProps) => {
   return (
-    <div className="border bg-white border-gray-300 shadow-md rounded-lg"> 
-      <div className="p-4">
-        <div className="relative ">
-          <img
-            src="https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=754&fit=clip"
-            className=" h-52 w-full rounded-lg "
-            alt=""
-          />
-          <p
-            className={`absolute top-2 my-1 right-2 px-2 border text-xs rounded-sm ${
-              book.inStock
-                ? "bg-green-100 text-green-500 border-green-500"
-                : "bg-red-100 text-red-500 border-red-500"
-            }`}
-          >
-            {book.inStock ? <span>in sotck</span> : <span>out of stock</span>}
+    <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-400">
+      {/* Image Container */}
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={
+            book.image ||
+            "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg"
+          }
+          alt={book.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+
+        {/* Stock Status Badge */}
+        <span
+          className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full shadow-md ${
+            book.inStock
+              ? "bg-green-500/90 text-white"
+              : "bg-red-500/90 text-white"
+          }`}
+        >
+          {book.inStock ? "Available" : "Sold Out"}
+        </span>
+
+        {/* Price Tag */}
+        <div className="absolute bottom-3 left-3 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+          ${book.price.toFixed(2)}
+        </div>
+      </div>
+
+      {/* Content Container */}
+      <div className="p-5 space-y-3">
+        <div>
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white line-clamp-2 leading-tight">
+            {book.title}
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+            by {book.author}
           </p>
         </div>
 
-        <div className="space-y-1 mt-3 ">
-          <p className="text-lg font-semibold font-sans ">{book.title}</p>
-          <p className="text-xs">
-            <span>{book.author}</span> | <span>{book.category}</span>
-          </p>
-          <h1 className="text-2xl text-orange-500">${book.price}</h1>
-          <Link to={`/allbooks/${book._id}`}>
-            <button className="bg-orange-500 text-white hover:bg-orange-600 w-full text-center font-semibold py-2 rounded-lg mt-3 ">
-              View Details
-            </button>
+        <div className="flex justify-between items-center">
+          <span className="inline-block bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2.5 py-1 rounded-full capitalize">
+            {book.category}
+          </span>
+
+          <Link
+            to={`/allbooks/${book._id}`}
+            className="text-orange-500 hover:text-orange-600 dark:hover:text-orange-400 font-medium text-sm flex items-center transition-colors"
+          >
+            View Details
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 ml-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </Link>
         </div>
       </div>

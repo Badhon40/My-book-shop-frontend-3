@@ -1,5 +1,4 @@
 
-import  { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {  useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../../Redux/Features/Admin/UserManagementApi/bookManagement.api";
@@ -9,7 +8,6 @@ import Loader from "../loader/Loader";
 
 const BookDetailsSkeleton = () => {
   const { bookId } = useParams();
-  const [loading, setLoading] = useState(false);
   const user = useSelector(selectCurrentUser);
   const { data: book, isLoading } = useGetSingleBookQuery(bookId);
   console.log("product id", bookId);
@@ -24,10 +22,8 @@ const BookDetailsSkeleton = () => {
     //   Navigate("/login", { state: { from: location } });
     //   return;
     // }
-    setLoading(true);
-    const stripe = await loadStripe(
-      "pk_test_51NFeKsHXxHHqqBSEXEZ6oVqeAquqIpszGA5xvnGO3XSkrX53ffO3A2pRkRRuIhjoVvUKiFxBoC476BMmG8pr8GDK00kNXNphd6"
-    );
+    // setLoading(true);
+    const stripe = await loadStripe("pk_test_51NFeKsHXxHHqqBSEXEZ6oVqeAquqIpszGA5xvnGO3XSkrX53ffO3A2pRkRRuIhjoVvUKiFxBoC476BMmG8pr8GDK00kNXNphd6");
 
     const body = {
       product: book.data,
@@ -39,7 +35,7 @@ const BookDetailsSkeleton = () => {
     };
 
     const response = await fetch(
-      "https://book-shop-backend-v1.vercel.app/create-checkout-session",
+      "http://localhost:5000/create-checkout-session",
       {
         method: "POST",
         headers: headers,
@@ -50,12 +46,15 @@ const BookDetailsSkeleton = () => {
     const session = await response.json();
     console.log("session", session);
 
-    const result = stripe?.redirectToCheckout({
+    const result = await stripe?.redirectToCheckout({
       sessionId: session?.id,
     });
-    setLoading(false);
+    // setLoading(false);
     console.log("payment result", result);
 
+    if (result && result.error) {
+      console.log(result.error);
+    }
   };
   return (
     <div className="container lg:w-[80%] mx-auto p-6 h-screen mt-10">
@@ -106,7 +105,7 @@ const BookDetailsSkeleton = () => {
               onClick={makePayment}
               className="btn btn-primary bg-orange-600 border-none hover:bg-orange-700"
             >
-              {loading ? 'loading...' : 'Order Now'}
+              Order Now
             </button>
           </div>
         </div>

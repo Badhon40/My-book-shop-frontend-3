@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { verifyToken } from "../../Utils/verifyToken";
 import { setUser, TUser } from "../../Redux/Features/Auth/authSlice";
 import { useAppDispatch } from "../../Redux/hook";
+import { MoveLeft } from "lucide-react";
 
 
 const Register = () => {
@@ -51,7 +52,7 @@ const Register = () => {
   };
   return (
     <div className="register">
-      <div className="border w-[400px] p-8 rounded-lg  backdrop-blur-md bg-brandPrimary/40">
+      <div className="border w-[400px] p-8 rounded-lg text-white bg-[#0e4a41]">
         <div className="flex justify-center items-center mb-4"></div>
         <h1 className="text-3xl text-center font-bold text-brandTextSecondary">
           REGISTER NOW{" "}
@@ -119,6 +120,12 @@ const Register = () => {
               </Link>
             </p>
           </div>
+           <Link to="/" className="text-center text-brandTextTertiary">
+              <p className="mt-4  text-center text-brandTextTertiary flex items-center justify-center gap-2">
+                <MoveLeft></MoveLeft>
+                Back to home
+              </p>
+            </Link>
         </form>
       </div>
     </div>
