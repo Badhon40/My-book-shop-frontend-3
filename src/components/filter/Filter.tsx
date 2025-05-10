@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { FormProvider, useForm } from "react-hook-form";
 import CoustomRadioSelect from "../CustomForm/CoustomRadioSelect";
 import CustomInput from "../CustomForm/CustomInput";
@@ -22,84 +21,58 @@ const Filter = ({ setShowFilter, showFilter, setFilterParams }: any) => {
 
   const { watch } = methods;
 
-  // 👀 Watch all the filter fields const min = watch("min");
   const min = watch("min");
   const max = watch("max");
   const inStock = watch("inStock");
   const category = watch("category");
   const author = watch("author");
 
-  useEffect(() => {
-    const filterObject: any = {};
+useEffect(() => {
+  const filterObject: any = {
+    minPrice: min !== 0 ? min : undefined,
+    maxPrice: max !== 100000 ? max : undefined,
+    inStock: inStock !== "All" ? inStock === "in stock" : undefined,
+    category: category !== "All" ? category : undefined,
+    author: author !== "All" ? author : undefined,
+  };
 
-    if (min !== 0 || max !== 100000) {
-      filterObject.minPrice = min;
-      filterObject.maxPrice = max;
+  // Remove undefined values
+  Object.keys(filterObject).forEach((key) => {
+    if (filterObject[key] === undefined) {
+      delete filterObject[key];
     }
+  });
 
-    if (inStock !== "All") {
-      filterObject.inStock = inStock === "in stock";
+  // Generate a filter array only once
+  const filterArray = Object.entries(filterObject).map(([key, value]) => ({
+    name: key,
+    value: value,
+  }));
+
+  // Check if the current state is different before setting it
+  setFilterParams((prevParams: any) => {
+    if (JSON.stringify(prevParams) !== JSON.stringify(filterArray)) {
+      console.log("Filter Parameters Updated:", filterArray); // Debugging
+      return filterArray;
     }
-
-    if (category !== "All") {
-      filterObject.category = category;
-    }
-
-    if (author !== "All") {
-      filterObject.author = author;
-    }
-
-    const filterArray = Object.entries(filterObject).map(([key, value]) => ({
-      name: key,
-      value: value,
-    }));
-
-    setFilterParams(filterArray);
-  }, [min, max, inStock, category, author, setFilterParams]);
-
-
+    return prevParams;
+  });
+}, [min, max, inStock, category, author, setFilterParams]);
 
   if (isLoading) {
-    return <p>loading ..</p>;
+    return <p>Loading...</p>;
   }
+
   const categoryOptions = [
     "All",
     ...new Set(data?.data?.map((book: TBook) => book.category)),
   ] as string[];
+
   const authorOptions = [
-    'All',
+    "All",
     ...new Set(data?.data?.map((book: TBook) => book.author)),
   ] as string[];
 
-  // const onSubmit = (data: any) => {
-  //   const filterObject: any = {};
-
-  //   //Handle price range if it is not set to the default values
-  //   if (data.min !== 0 || data.max !== 100000) {
-  //     filterObject.minPrice = data.min;
-  //     filterObject.maxPrice = data.max;
-  //   }
-
-  //   // Handle availability
-  //   if (data.inStock !== "All") {
-  //     filterObject.inStock = data.inStock === "in stock";
-  //   }
-
-  //   // Handle category and author filters
-  //   if (data.category !== "All") {
-  //     filterObject.category = data.category;
-  //   }
-  //   if (data.author !== "All") {
-  //     filterObject.author = data.author;
-  //   }
-
-  //   const filterArray = Object.entries(filterObject).map(([key, value]) => ({
-  //     name: key,
-  //     value: value,
-  //   }))
-  //   // Pass the filter params to the parent component
-  //   setFilterParams(filterArray);
-  // };
   return (
     <FormProvider {...methods}>
       <div className="flex items-center justify-between">

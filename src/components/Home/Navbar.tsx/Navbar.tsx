@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { logout } from '../../../Redux/Features/Auth/authSlice';
 import { persistor } from '../../../Redux/store';
 import logo from '../../../assets/logo.png';
-import UserProfileModal from './../../ProfileModal';
+
 
 
 
@@ -23,12 +23,7 @@ const Navbar = () => {
     toast.success('Logged out successfully');
     setMobileMenuOpen(false);
   };
-   const [isProfileModalOpen,setIsProfileModalOpen] = useState(false);
-
-  const handleProfileClick = () => {
-    setIsProfileModalOpen(true);
-  };
-
+ 
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/allbooks', label: 'All Books' },
@@ -94,25 +89,15 @@ const Navbar = () => {
                         Dashboard
                       </Link>
                     ) : (
-                      <button
-                        onClick={handleProfileClick}
+                      <Link to="/user"
                         className='block px-4 py-2 text-md text-gray-700 hover:bg-[#51c081] hover:text-white dark:text-gray-300 dark:hover:bg-[#4C765E] dark:hover:text-white'
                       >
                         Profile
-                      </button>
+                      </Link>
                       
                     )
                     
-                 }
-                 <div>
-                    
-                      <UserProfileModal
-                        isOpen={isProfileModalOpen}
-                        onClose={() => setIsProfileModalOpen(false)}
-                      />
-                    
-
-                 </div>
+                  }
                 
                   <button
                     onClick={handleLogout}

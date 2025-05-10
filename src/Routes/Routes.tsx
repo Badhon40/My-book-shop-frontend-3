@@ -6,9 +6,6 @@ import AllBooks from "../Pages/Books/All Books/AllBooks";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import About from "../Pages/About/About";
-//import Success from "../Pages/Payment/Success";
-//import Failure from "../Pages/Payment/Failure";
-//import { BookDetailsSkeleton } from "../components/BookDetailsSkeleton/BookDetailsSkeleton";
 import DashboardLayout from "../components/Layout/DashboardLayout";
 import { routeGenerator } from "../Utils/routesGenerator";
 import AdminRoutes from "./AdminRoutes";
@@ -18,6 +15,7 @@ import Success from "../Pages/Payment/Success";
 import Failure from "../Pages/Payment/Failure";
 import FAQ from "../Pages/Faq/FAQ";
 import ContactPage from "../Pages/contactPage/Contact";
+import UserRoutes from "./UserRoute";
 
 
 const router = createBrowserRouter([
@@ -49,7 +47,8 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactPage></ContactPage>
-      }
+      },
+       
     ],
   },
   {
@@ -60,17 +59,24 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register></Register>,
   },
-
   {
-    path: "/admin",
-    element: (
-      <ProtectedRoute role="admin">
-        <DashboardLayout></DashboardLayout>
-      </ProtectedRoute>
-    ),
-    children: routeGenerator(AdminRoutes),
-  },
- 
+        path: "/admin",
+        element: (
+          <ProtectedRoute role="admin">
+            <DashboardLayout></DashboardLayout>
+          </ProtectedRoute>
+        ),
+        children: routeGenerator(AdminRoutes),
+      },
+       {
+        path: "/user",
+        element: (
+          <ProtectedRoute role="user">
+            <DashboardLayout></DashboardLayout>
+          </ProtectedRoute>
+        ),
+        children: routeGenerator(UserRoutes),
+      },
   {
     path: "/success",
     element: <Success />,

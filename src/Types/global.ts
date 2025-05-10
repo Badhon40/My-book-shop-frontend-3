@@ -29,6 +29,9 @@ export interface User {
   name: string;
   email: string;
   role: string;
+  phone: string;
+  address: string;
+  city: string;
   _id: string;
 }
 export interface UserToken {
@@ -39,19 +42,22 @@ export interface UserToken {
   exp: number;
   token: string;
 }
-export interface CartItem {
-  userId: string;
-  bookId: string;
-  title: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
+
 
 export interface IBook {
   author: string;
   title: string;
   price: number;
+  category: string;
+  quantity: number;
+  inStock: boolean;
+  isDeleted: boolean;
+  offers: number;
+  description: string;
+  image: string;
+  publisher: string;
+  publicationDate: string;
+  rating: number;
   _id: string;
 }
 

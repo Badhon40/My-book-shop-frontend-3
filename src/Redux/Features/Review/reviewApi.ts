@@ -9,7 +9,13 @@ export const reviewAPI = baseApi.injectEndpoints({
         method: "Get",
       }),
     }),
+    getSingleBookReview: build.query({
+      query: (bookId) => ({
+        url: `/reviews/${bookId}`,
+        method: "Get",
+      }),
+    }),
   }),
 });
 
-export const { useGetReviewQuery } = reviewAPI;
+export const { useGetReviewQuery,useGetSingleBookReviewQuery } = reviewAPI;

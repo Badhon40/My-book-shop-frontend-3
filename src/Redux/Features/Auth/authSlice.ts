@@ -7,8 +7,7 @@ export type TUser = {
   email: string;                 // Email
   iat: number;                   // JWT Issued At timestamp
   exp: number;                   // JWT Expiration timestamp
-  orders?: string[];             // Optional array of order IDs (ObjectId converted to string)
-  cart?: string[];               // Optional array of cart item IDs (ObjectId converted to string)
+  orders?: string[];             // Optional array of order IDs (ObjectId converted to string)            
   name?: string;                 // Optional name of the user
   phone?: string;                // Optional phone number
   address?: string;              // Optional address

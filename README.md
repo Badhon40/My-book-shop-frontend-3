@@ -10,7 +10,6 @@ URl : (https://book-shop-frontend-weld-tau.vercel.app/)
 
 * 📚 **Browse Books:** Discover a wide range of books across different genres.
 * 🔍 **Search & Filter:** Quickly find books by title, author, genre, or price.
-* 🛒 **Shopping Cart:** Add books to your cart and manage your selections before checkout.
 * 💳 **Secure Checkout:** Smooth and secure payment process.
 * 📝 **User Authentication:** Sign up, log in, and manage your account.
 * ⭐ **Ratings & Reviews:** View and add reviews for books.
@@ -65,7 +64,6 @@ STRIPE_SECRET_KEY=your-stripe-secret-key
 
 * Visit the homepage to explore books.
 * Use the search bar and filters to refine your search.
-* Add books to your cart and proceed to checkout.
 * View your order history and manage your profile.
 
 ## API Endpoints

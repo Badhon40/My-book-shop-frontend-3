@@ -28,20 +28,23 @@ const BookDetailsPage = () => {
 
     setIsAdding(true);
     try {
-      const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY!);
+      const stripe = await loadStripe("pk_test_51RL6aZPBoYcHumd6yk72rs5nrP1ukQeyFvDDZuFZBoTD3iWUsr2YRhDug3CFVDyBMbJ8CnejAlQ2LDiqVCkcRbJn00mcOtt9XR");
 
       const body = {
         product: book.data,
         user,
       };
 
-      const response = await fetch(`${process.env.BASE_URL}/create-checkout-session`, {
+     const response = await fetch(
+      "http://localhost:5000/create-checkout-session",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
-      });
+      }
+    );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -101,11 +104,11 @@ const BookDetailsPage = () => {
 
           <div className="font-bold flex items-center gap-20 py-6">
             <span className="text-green-700 text-2xl">
-              ৳ {book?.data?.price}
+              $ {book?.data?.price}
             </span>
             {book?.data?.price > 100 && (
               <span className="text-gray-500 text-lg line-through">
-                ৳{book?.data?.price}
+                ${book?.data?.price}
               </span>
             )}
           </div>

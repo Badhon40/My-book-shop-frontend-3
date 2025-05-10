@@ -6,12 +6,22 @@ import { toast } from "sonner";
 import { useUpdatePasswordMutation } from "../../Redux/Features/Auth/authApi";
 import { useGetOrdersByEmailQuery } from "../../Redux/Features/Orders/Order.api";
 
+export interface IProduct {
+  _id: string;
+  title: string;
+  author: string;
+  // Add more product fields if needed
+}
+export interface IUser {
+  _id: string;
+  email: string;
+  name: string;
+  // Add more fields if needed
+}
 export interface IOrder {
-  user?: {
-    email: string;
-  };
+  user?: IUser;
   products: {
-    product: string;
+    productId: IProduct;
     quantity: number;
   }[];
   totalPrice: number;
@@ -73,7 +83,7 @@ const UserDashboard = () => {
           ></IoMdNotificationsOutline>
           <FiUser
             size={30}
-            className="cursor-pointer text-[]#4C765E bg-orange-100 rounded"
+            className="cursor-pointer text-orange-500 bg-orange-100 rounded"
           ></FiUser>
         </div>
       </div>
@@ -107,14 +117,10 @@ const UserDashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.data.map((orderItem: IOrder, index : number) => (
-                      // console.log(
-                      //   "inside map",
-                      //   orderItem.products[0]?.productId?.author
-                      // )
+                    {data?.data.map((orderItem: IOrder,index:number) => (
                       <tr className="border border-gray-300" key={index}>
-                        <td>{orderItem.products[0]?.product}</td>
-                        <td>{orderItem.products[0]?.product}</td>
+                        <td>{orderItem.products[0]?.productId?.author }</td>
+                        <td>{orderItem.products[0]?.productId?.title }</td>
                         <td>{orderItem?.user?.email}</td>
                         <td>{orderItem?.status}</td>
                         <td>{orderItem.totalPrice}</td>
@@ -175,7 +181,7 @@ const UserDashboard = () => {
 
                   <button
                     type="submit"
-                    className="bg-[]#4C765E text-white hover:bg-[#4C765E] w-full text-center font-semibold py-2 rounded-lg mt-3"
+                    className="bg-orange-500 text-white hover:bg-orange-600 w-full text-center font-semibold py-2 rounded-lg mt-3"
                   >
                     Login
                   </button>
