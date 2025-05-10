@@ -70,9 +70,14 @@ const Navbar = () => {
           <div className='flex items-center gap-8'>
               <Link to='/checkout/cart'>
             <div className='relative'>
-              <Button>
+              <Button className='relative'>
                 <ShoppingCart size={24} className='text-[#51c081] hover:text-[#4C765E]' />
               </Button>
+              {user && (
+                <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center'>
+                  3
+                </span>
+              )}
             </div>
           </Link>
             {user?.email ? (

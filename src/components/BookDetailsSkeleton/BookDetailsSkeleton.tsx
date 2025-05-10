@@ -1,28 +1,21 @@
-
 import { loadStripe } from "@stripe/stripe-js";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../../Redux/Features/Admin/UserManagementApi/bookManagement.api";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Features/Auth/authSlice";
 import Loader from "../loader/Loader";
+import errorbook from "../../assets/4735.jpg";
 
-const BookDetailsSkeleton = () => {
+const BookDetailsPage = () => {
   const { bookId } = useParams();
   const user = useSelector(selectCurrentUser);
   const { data: book, isLoading } = useGetSingleBookQuery(bookId);
-  console.log("product id", bookId);
-  console.log(book);
+
   if (isLoading) {
-    return <Loader></Loader>;
+    return <Loader />;
   }
 
   const makePayment = async () => {
-    // if (!user) {
-    //   // Redirect to login and remember current location
-    //   Navigate("/login", { state: { from: location } });
-    //   return;
-    // }
-    // setLoading(true);
     const stripe = await loadStripe("pk_test_51NFeKsHXxHHqqBSEXEZ6oVqeAquqIpszGA5xvnGO3XSkrX53ffO3A2pRkRRuIhjoVvUKiFxBoC476BMmG8pr8GDK00kNXNphd6");
 
     const body = {
@@ -44,70 +37,61 @@ const BookDetailsSkeleton = () => {
     );
 
     const session = await response.json();
-    console.log("session", session);
-
-    const result = await stripe?.redirectToCheckout({
-      sessionId: session?.id,
-    });
-    // setLoading(false);
-    console.log("payment result", result);
-
-    if (result && result.error) {
-      console.log(result.error);
-    }
+    await stripe?.redirectToCheckout({ sessionId: session?.id });
   };
-  return (
-    <div className="container lg:w-[80%] mx-auto p-6 h-screen mt-10">
-      <div className="flex justify-center  gap-20  items-center">
-        <div className="rounded-lg flex-1 overflow-hidden shadow-lg">
-          <img
-            src={
-              book?.data?.img ||
-              "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=754&fit=clip"
-            }
-            alt={book?.data?.title}
-            className="w-full h-auto object-cover"
-          />
-        </div>
 
-        <div className="flex-1">
-          <h2 className="text-3xl font-bold text-[#4C765E]">
+  const finalPrice = book?.data?.price - (book?.data?.price * book?.data?.offers) / 100;
+
+
+
+  return (
+    <div className="container mx-auto p-6 min-h-screen mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center justify-center">
+        <div className="w-full h-full relative">
+              <img
+                src={book.image}
+                alt="New Book Launch"
+                className="w-full h-full object-cover rounded-lg shadow-xl border-4"
+                onError={(e) => (e.currentTarget.src = errorbook)} 
+              />
+              {/* Discount Badge */}
+              {
+                book?.data?.offers && (
+                  <div className="absolute top-4 right-4 bg-[#FF4C60] text-white text-lg font-bold px-3 py-1 rounded-lg shadow-md">
+                    {book?.data?.offers}% OFF
+                  </div>
+                )
+              }
+            </div>
+
+        <div className="space-y-2">
+          <h2 className="text-4xl font-bold text-[#4C765E]">
             {book?.data?.title}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">by {book?.data?.author}</p>
+          <p className="text-lg text-gray-600">by {book?.data?.author}</p>
+          <p className="text-md text-gray-500">{book?.data?.category}</p>
+          <p className="text-md text-gray-500">Published by: {book?.data?.publisher}</p>
+          <p className="text-md text-gray-500">Published on: {new Date(book?.data?.publicationDate).toLocaleDateString()}</p>
 
-          <div className="mt-4 flex gap-4">
-             <h2 className="text-sm  text-[#4C765E]">
-            {book?.data?.publicationDate || "N/A"}
-          </h2>
-           <h2 className="text-sm text-[#4C765E]">
-            {book?.data?.category || "N/A"}
-          </h2>
-           <h2 className="text-sm text-[#4C765E]">
-            {book?.data?.publisher || "N/A"}
-          </h2>
-          </div>
+          <p className="text-lg mt-4 text-gray-700">{book?.data?.description}</p>
 
-          <p className="mt-4 text-gray-700">{book?.data?.description}</p>
-
-          <div className="mt-6">
-            <span className="text-2xl font-bold text-[#4C765E]">
-              ${book?.data?.price}
+          <div className="text-2xl font-bold flex items-center gap-20 mt-4">
+           <span className="text-red-500">After Discount <br /> TK-{finalPrice}</span>
+            <span className="text-md text-gray-500 line-through ml-2">
+              TK-{book?.data?.price}
             </span>
           </div>
 
-          <div className="mt-4 flex gap-4">
-            <button
-              onClick={makePayment}
-              className="btn btn-primary bg-[#4C765E] border-none hover:bg-[#477059]"
-            >
-              Order Now
-            </button>
-          </div>
+          <button
+            onClick={makePayment}
+            className="bg-[#4C765E] text-white hover:bg-[#3b5f4e] rounded-lg mt-4 w-full md:w-1/2 text-xl py-3"
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default BookDetailsSkeleton;
+export default BookDetailsPage;

@@ -17,8 +17,8 @@ import ProtectedRoute from "../components/RouteComponents/ProtectedRoute";
 import BookDetailsSkeleton from "../components/BookDetailsSkeleton/BookDetailsSkeleton";
 import Success from "../Pages/Payment/Success";
 import Failure from "../Pages/Payment/Failure";
-import FAQ from "../components/Faq/FAQ";
-import ContactPage from "../components/contactPage/Contact";
+import FAQ from "../Pages/Faq/FAQ";
+import ContactPage from "../Pages/contactPage/Contact";
 
 const router = createBrowserRouter([
   {

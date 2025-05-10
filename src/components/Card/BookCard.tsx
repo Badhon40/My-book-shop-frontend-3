@@ -11,7 +11,7 @@ export type TBook = {
   image: string;
 };
 
-type BookCardProps = {
+export type BookCardProps = {
   book: TBook;
 };
 
@@ -63,10 +63,10 @@ const BookCard = ({ book }: BookCardProps) => {
         </div>
          <Link
             to={`/allbooks/${book._id}`}
-            className="text-[#4C765E] hover:text-[#4C765E]  font-medium text-sm flex items-center transition-colors"
-            role="button"
-          >
-            View Details
+            >
+            <button className="w-full bg-[#4C765E] text-white hover:bg-[#477059] rounded-lg mt-4 py-2 text-sm font-semibold transition duration-300">
+              View Details
+            </button>
 
           </Link>
       </div>
