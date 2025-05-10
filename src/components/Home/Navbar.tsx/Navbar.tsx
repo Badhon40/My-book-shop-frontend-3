@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { toast } from 'sonner';
-import { LogOut, Menu, ShoppingCart, X } from 'lucide-react';
-import { Avatar } from 'antd';
+import { LogOut, Menu,  X } from 'lucide-react';
+import { Avatar} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { logout } from '../../../Redux/Features/Auth/authSlice';
 import { persistor } from '../../../Redux/store';
 import logo from '../../../assets/logo.png';
+import UserProfileModal from './../../ProfileModal';
+
 
 
 const Navbar = () => {
@@ -20,6 +22,11 @@ const Navbar = () => {
     persistor.purge();
     toast.success('Logged out successfully');
     setMobileMenuOpen(false);
+  };
+   const [isProfileModalOpen,setIsProfileModalOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    setIsProfileModalOpen(true);
   };
 
   const navLinks = [
@@ -68,20 +75,7 @@ const Navbar = () => {
           </nav>
 
           <div className='flex items-center gap-8'>
-             {
-              user?.role === 'user' && (
-                <Link
-                  to='/cart'
-                  className='relative flex items-center text-gray-700 hover:text-[#4C765E] focus:outline-none'
-                  onClick={closeMobileMenu}
-                >
-                  <ShoppingCart className='h-6 w-6' />
-                  <span className='absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full px-1 py-0.5'>
-                    {user.cart?.length || 0}
-                  </span>
-                </Link>
-              )
-             }
+             
             {user?.email ? (
               <div className='relative group'>
                 <button className='flex items-center space-x-2 focus:outline-none'>
@@ -100,14 +94,26 @@ const Navbar = () => {
                         Dashboard
                       </Link>
                     ) : (
-                      <Link
-                        to='/profile'
+                      <button
+                        onClick={handleProfileClick}
                         className='block px-4 py-2 text-md text-gray-700 hover:bg-[#51c081] hover:text-white dark:text-gray-300 dark:hover:bg-[#4C765E] dark:hover:text-white'
                       >
                         Profile
-                      </Link>
+                      </button>
+                      
                     )
+                    
                  }
+                 <div>
+                    
+                      <UserProfileModal
+                        isOpen={isProfileModalOpen}
+                        onClose={() => setIsProfileModalOpen(false)}
+                      />
+                    
+
+                 </div>
+                
                   <button
                     onClick={handleLogout}
                     className='w-full text-left px-4 py-2 text-md text-gray-700  hover:bg-[#4C765E] flex items-center gap-2'

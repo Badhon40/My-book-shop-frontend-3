@@ -39,10 +39,13 @@ export interface UserToken {
   exp: number;
   token: string;
 }
-export interface ICartModal {
+export interface CartItem {
+  userId: string;
+  bookId: string;
   title: string;
+  price: number;
+  image: string;
   quantity: number;
-  totalPrice: number;
 }
 
 export interface IBook {

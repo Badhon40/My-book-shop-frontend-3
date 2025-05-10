@@ -18,7 +18,7 @@ import Success from "../Pages/Payment/Success";
 import Failure from "../Pages/Payment/Failure";
 import FAQ from "../Pages/Faq/FAQ";
 import ContactPage from "../Pages/contactPage/Contact";
-import Cart from "../Pages/Cart/Cart";
+
 
 const router = createBrowserRouter([
   {
@@ -70,14 +70,7 @@ const router = createBrowserRouter([
     ),
     children: routeGenerator(AdminRoutes),
   },
-  {
-    path: "/cart",
-    element: 
-      <ProtectedRoute role="user">
-        <Cart />
-      </ProtectedRoute>
-    
-  },
+ 
   {
     path: "/success",
     element: <Success />,
