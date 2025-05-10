@@ -12,13 +12,13 @@ import About from "../Pages/About/About";
 import DashboardLayout from "../components/Layout/DashboardLayout";
 import { routeGenerator } from "../Utils/routesGenerator";
 import AdminRoutes from "./AdminRoutes";
-import UserRoutes from "./UserRoute";
 import ProtectedRoute from "../components/RouteComponents/ProtectedRoute";
 import BookDetailsSkeleton from "../components/BookDetailsSkeleton/BookDetailsSkeleton";
 import Success from "../Pages/Payment/Success";
 import Failure from "../Pages/Payment/Failure";
 import FAQ from "../Pages/Faq/FAQ";
 import ContactPage from "../Pages/contactPage/Contact";
+import Cart from "../Pages/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -71,13 +71,12 @@ const router = createBrowserRouter([
     children: routeGenerator(AdminRoutes),
   },
   {
-    path: "/user",
-    element: (
+    path: "/cart",
+    element: 
       <ProtectedRoute role="user">
-        <DashboardLayout></DashboardLayout>
+        <Cart />
       </ProtectedRoute>
-    ),
-    children: routeGenerator(UserRoutes),
+    
   },
   {
     path: "/success",

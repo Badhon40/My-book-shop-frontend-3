@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../Redux/hook';
 import { logout } from '../../../Redux/Features/Auth/authSlice';
 import { persistor } from '../../../Redux/store';
 import logo from '../../../assets/logo.png';
-import { Button } from 'antd';
+
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -68,18 +68,20 @@ const Navbar = () => {
           </nav>
 
           <div className='flex items-center gap-8'>
-              <Link to='/checkout/cart'>
-            <div className='relative'>
-              <Button className='relative'>
-                <ShoppingCart size={24} className='text-[#51c081] hover:text-[#4C765E]' />
-              </Button>
-              {user && (
-                <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center'>
-                  3
-                </span>
-              )}
-            </div>
-          </Link>
+             {
+              user?.role === 'user' && (
+                <Link
+                  to='/cart'
+                  className='relative flex items-center text-gray-700 hover:text-[#4C765E] focus:outline-none'
+                  onClick={closeMobileMenu}
+                >
+                  <ShoppingCart className='h-6 w-6' />
+                  <span className='absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full px-1 py-0.5'>
+                    {user.cart?.length || 0}
+                  </span>
+                </Link>
+              )
+             }
             {user?.email ? (
               <div className='relative group'>
                 <button className='flex items-center space-x-2 focus:outline-none'>
@@ -89,15 +91,26 @@ const Navbar = () => {
                   />
                 </button>
                 <div className='absolute right-0 mt-2 w-48 origin-top-right bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 dark:bg-gray-800 dark:ring-gray-700'>
-                  <Link
-                    to={`/${user?.role}/dashboard`}
-                    className='block px-4 py-2 text-md text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] dark:text-gray-300 dark:hover:bg-gray-700'
-                  >
-                    Dashboard
-                  </Link>
+                 {
+                    user?.role === 'admin' ? (
+                      <Link
+                        to='/dashboard'
+                        className='block px-4 py-2 text-md text-gray-700 hover:bg-[#51c081] hover:text-white dark:text-gray-300 dark:hover:bg-[#4C765E] dark:hover:text-white'
+                      >
+                        Dashboard
+                      </Link>
+                    ) : (
+                      <Link
+                        to='/profile'
+                        className='block px-4 py-2 text-md text-gray-700 hover:bg-[#51c081] hover:text-white dark:text-gray-300 dark:hover:bg-[#4C765E] dark:hover:text-white'
+                      >
+                        Profile
+                      </Link>
+                    )
+                 }
                   <button
                     onClick={handleLogout}
-                    className='w-full text-left px-4 py-2 text-md text-gray-700 bg-[#51c081] hover:bg-[#4C765E] flex items-center gap-2'
+                    className='w-full text-left px-4 py-2 text-md text-gray-700  hover:bg-[#4C765E] flex items-center gap-2'
                   >
                     <LogOut size={16} />
                     <span>Log out</span>

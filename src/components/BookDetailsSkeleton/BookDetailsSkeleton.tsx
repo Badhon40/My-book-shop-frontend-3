@@ -6,6 +6,7 @@ import { selectCurrentUser } from "../../Redux/Features/Auth/authSlice";
 import Loader from "../loader/Loader";
 import errorbook from "../../assets/4735.jpg";
 
+
 const BookDetailsPage = () => {
   const { bookId } = useParams();
   const user = useSelector(selectCurrentUser);
@@ -40,7 +41,15 @@ const BookDetailsPage = () => {
     await stripe?.redirectToCheckout({ sessionId: session?.id });
   };
 
-  const finalPrice = book?.data?.price - (book?.data?.price * book?.data?.offers) / 100;
+  const CalculatePrice = (price: number, offer : number): number => {
+   if (offer) {
+      if (price > 100) {
+        const discount =Math.round((price * offer) / 100);
+        return price - discount;
+      }
+    }
+    return price;
+  };
 
 
 
@@ -56,7 +65,7 @@ const BookDetailsPage = () => {
               />
               {/* Discount Badge */}
               {
-                book?.data?.offers && (
+                book?.data?.price>100 && (
                   <div className="absolute top-4 right-4 bg-[#FF4C60] text-white text-lg font-bold px-3 py-1 rounded-lg shadow-md">
                     {book?.data?.offers}% OFF
                   </div>
@@ -75,22 +84,35 @@ const BookDetailsPage = () => {
 
           <p className="text-lg mt-4 text-gray-700">{book?.data?.description}</p>
 
-          <div className="text-2xl font-bold flex items-center gap-20 mt-4">
-           <span className="text-red-500">After Discount <br /> TK-{finalPrice}</span>
-            <span className="text-md text-gray-500 line-through ml-2">
-              TK-{book?.data?.price}
-            </span>
+          <div className="font-bold flex items-center gap-20 py-6">
+           <span className="text-green-700 text-2xl">৳ {CalculatePrice(book?.data?.price, book?.data?.offers)}</span>
+           {
+            book?.data?.price>100 && (
+              <span className="text-gray-500 text-lg line-through">৳{book?.data?.price}</span>  
+            ) 
+           }
+          </div>
+                {user?.role === "user" ? (
+                  <button
+                    onClick={makePayment}
+                    className="bg-[#4C765E] text-white hover:bg-[#3b5f4e] rounded-lg mt-4 w-full md:w-1/2 text-xl py-2"
+                  >
+                    Add to Cart
+                  </button>
+                ) : (
+                  <button
+                    disabled
+                    className="bg-gray-400 text-white rounded-lg mt-4 w-full md:w-1/2 text-xl py-2 cursor-not-allowed"
+                  >
+                    Only users can buy
+                  </button>
+                )}
           </div>
 
-          <button
-            onClick={makePayment}
-            className="bg-[#4C765E] text-white hover:bg-[#3b5f4e] rounded-lg mt-4 w-full md:w-1/2 text-xl py-3"
-          >
-            Add to Cart
-          </button>
+          
         </div>
       </div>
-    </div>
+  
   );
 };
 
