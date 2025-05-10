@@ -117,7 +117,7 @@ const Footer = () => {
               <button 
               onClick={handleSubmit}
                 type="submit"
-                className="w-full px-6 py-2 bg-[#4C765F] hover:bg-orange-700 text-white font-medium rounded-lg transition-colors duration-300"
+                className="w-full px-6 py-2 bg-[#4C765F] hover:bg-green-700 text-white font-medium rounded-lg transition-colors duration-300"
               >
                 Subscribe
               </button>

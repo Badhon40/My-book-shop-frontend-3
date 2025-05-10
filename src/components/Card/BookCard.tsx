@@ -17,7 +17,7 @@ export type BookCardProps = {
 
 const BookCard = ({ book }: BookCardProps) => {
   return (
-    <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-400">
+    <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-green-400 dark:hover:border-green-400">
       {/* Image Container */}
       <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
         <img

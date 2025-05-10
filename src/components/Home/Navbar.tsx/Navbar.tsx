@@ -42,7 +42,7 @@ const Navbar = () => {
         <div className='flex items-center justify-between h-20'>
           <div className='flex '>
             <button
-              className='lg:hidden p-2 rounded-md text-gray-700 hover:bg-orange-50 hover:text-[#4C765E] focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800'
+              className='lg:hidden p-2 rounded-md text-gray-700 hover:bg-green-50 hover:text-[#4C765E] focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800'
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className='h-6 w-6' /> : <Menu className='h-6 w-6' />}
@@ -83,7 +83,7 @@ const Navbar = () => {
                  {
                     user?.role === 'admin' ? (
                       <Link
-                        to='/dashboard'
+                        to='/admin'
                         className='block px-4 py-2 text-md text-gray-700 hover:bg-[#51c081] hover:text-white dark:text-gray-300 dark:hover:bg-[#4C765E] dark:hover:text-white'
                       >
                         Dashboard

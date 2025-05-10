@@ -1,7 +1,5 @@
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useAppSelector } from "../../Redux/hook";
-import { IoMdNotificationsOutline } from "react-icons/io";
-import { FiUser } from "react-icons/fi";
 import { toast } from "sonner";
 import { useUpdatePasswordMutation } from "../../Redux/Features/Auth/authApi";
 import { useGetOrdersByEmailQuery } from "../../Redux/Features/Orders/Order.api";
@@ -66,7 +64,7 @@ const UserDashboard = () => {
 
   return (
     <div>
-      <div className="w-full flex justify-between items-center mb-16">
+      <div className="pt-10 w-full flex justify-between items-center mb-16">
         <div className="">
           {" "}
           <input
@@ -75,17 +73,7 @@ const UserDashboard = () => {
             type="text"
           />
         </div>
-        <div className="flex items-center gap-10">
-          {" "}
-          <IoMdNotificationsOutline
-            size={25}
-            className="cursor-pointer text-gray-500 hover:text-black"
-          ></IoMdNotificationsOutline>
-          <FiUser
-            size={30}
-            className="cursor-pointer text-orange-500 bg-orange-100 rounded"
-          ></FiUser>
-        </div>
+      
       </div>
 
       {/* The Tap  */}
@@ -147,7 +135,7 @@ const UserDashboard = () => {
         />
         <div className="tab-content  bg-base-100 rounded-lg p-10">
           <div>
-            <div className="card bg-base-100  w-[40%] mx-auto shrink-0 shadow-2xl">
+            <div className="card bg-base-100  mx-auto shrink-0 shadow-2xl">
               <div className="card-body">
                 <h1 className="text-center font-bold text-2xl text-[#1f1f1f]">
                   Update Password
@@ -181,7 +169,7 @@ const UserDashboard = () => {
 
                   <button
                     type="submit"
-                    className="bg-orange-500 text-white hover:bg-orange-600 w-full text-center font-semibold py-2 rounded-lg mt-3"
+                    className="bg-green-500 text-white hover:bg-green-600 w-full text-center font-semibold py-2 rounded-lg mt-3"
                   >
                     Login
                   </button>
@@ -190,8 +178,9 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+ 
   );
 };
 

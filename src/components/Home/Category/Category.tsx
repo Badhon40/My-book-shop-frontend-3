@@ -31,7 +31,7 @@ export default function Category() {
               to={`/allbooks?category=${encodeURIComponent(category.name)}`}
               className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm hover:shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#4C765E]  hover:text-white"
             >
-              {/* Orange overlay on hover */}
+              {/* green overlay on hover */}
               <div className="absolute inset-0 bg-[#4C765E] opacity-0 group-hover:opacity-5 transition-opacity duration-300" />
               
               <div className="relative z-10 flex flex-col items-center">

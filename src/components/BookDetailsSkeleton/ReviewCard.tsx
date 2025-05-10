@@ -74,7 +74,7 @@ const ReviewCard = ({ review }: { review: IReview }) => {
         <Avatar
           size={48}
           icon={<UserOutlined />}
-          className="bg-orange-100 text-orange-600 dark:bg-gray-700 dark:text-orange-400"
+          className="bg-green-100 text-green-600 dark:bg-gray-700 dark:text-green-400"
         />
         <div className="flex-1">
           <div className="flex justify-between items-start">
@@ -98,14 +98,14 @@ const ReviewCard = ({ review }: { review: IReview }) => {
           <div className="flex items-center gap-4 mt-4">
             <button 
               onClick={handleLike}
-              className={`flex items-center gap-1 text-sm ${userReaction === "like" ? "text-orange-600 dark:text-orange-400" : "text-gray-500 dark:text-gray-400"}`}
+              className={`flex items-center gap-1 text-sm ${userReaction === "like" ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}`}
             >
               <ThumbsUp size={16} />
               <span>{localLikes}</span>
             </button>
             <button 
               onClick={handleDislike}
-              className={`flex items-center gap-1 text-sm ${userReaction === "dislike" ? "text-orange-600 dark:text-orange-400" : "text-gray-500 dark:text-gray-400"}`}
+              className={`flex items-center gap-1 text-sm ${userReaction === "dislike" ? "text-green-600 dark:text-green-400" : "text-gray-500 dark:text-gray-400"}`}
             >
               <ThumbsDown size={16} />
               <span>{localDislikes}</span>

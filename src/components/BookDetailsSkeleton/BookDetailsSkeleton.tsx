@@ -16,6 +16,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Features/Auth/authSlice";
 import ReviewCard ,{ IReview } from "./ReviewCard";
+import errorImage from "../../assets/4735.jpg"
 
 
 const BookDetails = () => {
@@ -100,7 +101,7 @@ const BookDetails = () => {
     };
 
     const response = await fetch(
-      "http://localhost:5000/create-checkout-session",
+      "https://book-shop-backend-rho.vercel.app/create-checkout-session",
       {
         method: "POST",
         headers: headers,
@@ -122,6 +123,8 @@ const BookDetails = () => {
       console.log((await (result as any)).error);
     }
   };
+
+  // Render book details
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen">
@@ -145,22 +148,21 @@ const BookDetails = () => {
               <div className="relative w-full max-w-lg">
                 <img
                   src={
-                    book?.data?.image ||
-                    "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg"
+                    book?.data?.image 
                   }
                   alt={book?.data?.title}
                   className="w-full h-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
+                  onError={(e) => {
+                    e.currentTarget.src = errorImage;
+                  }}
                 />
-                {/* {book.isNew && (
-                  <span className="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-                    New Release
-                  </span>
-                )} */}
-                {/* {book.discount > 0 && (
-                  <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm">
-                    {book.discount}% OFF
-                  </span>
-                )} */}
+                {
+                book?.data?.offers && (
+                  <div className="absolute top-4 right-4 bg-[#FF4C60] text-white text-lg font-bold px-3 py-1 rounded-lg shadow-md">
+                    {book?.data?.offers}% OFF
+                  </div>
+                )
+              }
               </div>
 
               {/* Action buttons */}
@@ -215,7 +217,7 @@ const BookDetails = () => {
                   </span>
                   {!book.originalPrice && (
                     <span className="ml-3 text-gray-400 dark:text-gray-500 line-through text-lg">
-                      {formatPrice(book?.data?.originalPrice || 50)}
+                      {formatPrice(book?.data?.price)}
                     </span>
                   )}
                 </div>
@@ -332,7 +334,9 @@ const BookDetails = () => {
                   <ShoppingCart size={20} className="mr-2" />
                   Add to Cart
                 </button>
-                <button
+                {
+                  user ? (
+                    <button
                 onClick={makePayment}
                   className={`flex-1 py-3 px-6 rounded-lg font-medium transition-colors ${
                     book?.data?.inStock
@@ -342,7 +346,20 @@ const BookDetails = () => {
                   disabled={!book?.data?.inStock}
                 >
                   Buy Now
+                </button>) : (
+                  <button
+                onClick={makePayment}
+                  className={`flex-1 py-3 px-6 rounded-lg font-medium transition-colors ${
+                    book?.data?.inStock
+                      ? "border border-green-600 text-green-600 dark:text-green-400 dark:border-green-400 hover:bg-green-50 dark:hover:bg-gray-700"
+                      : "border border-gray-300 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                  }`}
+                  disabled
+                >
+                  Only for registered users
                 </button>
+                )
+                }
               </div>
             </div>
           </div>

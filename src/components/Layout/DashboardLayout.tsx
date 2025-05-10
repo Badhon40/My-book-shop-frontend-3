@@ -5,6 +5,8 @@ import UserRoutes from "../../Routes/UserRoute";
 import { IoHomeOutline } from "react-icons/io5";
 import { useAppSelector } from "../../Redux/hook";
 import logo from "../../assets/logo.png";
+import { useState } from "react";
+import { MenuIcon, X } from "lucide-react";
 
 const userRole = {
   ADMIN: "admin",
@@ -12,6 +14,7 @@ const userRole = {
 };
 
 const DashboardLayout = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const currentUserRole = useAppSelector((state) => state.auth.user?.role);
   let sidebarItem;
 
@@ -22,45 +25,60 @@ const DashboardLayout = () => {
     case userRole.USER:
       sidebarItem = sidebarItemsGenerator(UserRoutes, userRole.USER);
       break;
-
     default:
       break;
   }
+
   return (
-    <div className="max-w-[2520px]  mx-auto ">
-      <div className="md:flex lg:flex ">
-        <div className="fixed top-0 left-0 lg:w-60  lg:h-screen  text-black shadow-xl border-2 ">
+    <div className="max-w-[2520px] mx-auto">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden block p-2 bg-green-500 text-white fixed top-4 left-4 z-50 rounded-md"
+      >
+        {isOpen ? 'Close' : 'Menu'}
+      </button>
+
+      <div className="flex">
+        {/* Sidebar */}
+        <div
+          className={`fixed top-0 left-0 w-60 h-screen text-black shadow-xl border-2 bg-white z-50 transition-transform duration-300 ${
+            isOpen ? 'translate-x-0' : '-translate-x-full'
+          } md:translate-x-0`}
+        >
           <Link to={"/"}>
-            <div className="flex justify-center items-center mt-2  ">
-              <img
-                className="w-[50%]"
-                src={logo}
-                alt=""
-              />
+            <div className="flex pt-10 justify-center items-center mt-2">
+              <img className="w-[50%] md:w-[70%]" src={logo} alt="Logo" />
             </div>
           </Link>
+
           <div className="flex flex-col justify-between min-h-[calc(100vh-96px)]">
-            <ul className=" text-lg space-y-3 pt-8 px-2 text-center">
-              {sidebarItem?.map((item, index) => {
-                if (!item) return null; // skip undefined
-                return (
-                  <div key={index}>
-                    <li className=" bg-orange-50 hover:bg-gray-100 text-[]#4C765E hover:text-[#4C765E] font-semibold px-4 py-2 rounded-md ">
-                      <NavLink to={`${item.label}`}>{item.key}</NavLink>
-                    </li>
-                  </div>
-                );
-              })}
+            <ul className="text-lg space-y-3 pt-8 px-2 text-center">
+              {sidebarItem?.map((item, index) => (
+                item && (
+                  <li
+                    key={index}
+                    className="bg-green-50 hover:bg-gray-100 text-[#4C765E] hover:text-[#4C765E] font-semibold px-4 py-2 rounded-md"
+                  >
+                    <NavLink to={`${item.label}`}>{item.key}</NavLink>
+                  </li>
+                )
+              ))}
+                   <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden block p-2 bg-green-500 text-white fixed top-4 left-4 z-50 rounded-md"
+            >
+              {isOpen ? <X /> : <MenuIcon />}
+            </button>
             </ul>
 
-            <div className=" ">
+            <div>
               <ul className="list-none text-lg space-y-3 pt-8 px-2 text-center">
-                <li className=" bg-orange-50 hover:bg-gray-100 text-[]#4C765E hover:text-[#4C765E] font-semibold px-4 py-2 rounded-md ">
+                <li className="bg-green-50 hover:bg-gray-100 text-[#4C765E] hover:text-[#4C765E] font-semibold px-4 py-2 rounded-md">
                   <NavLink
-                    className={"flex items-center justify-center"}
+                    className="flex items-center justify-center"
                     to={`/`}
                   >
-                    <IoHomeOutline size={20}></IoHomeOutline> &nbsp; Home
+                    <IoHomeOutline size={20} /> &nbsp; Home
                   </NavLink>
                 </li>
               </ul>
@@ -68,8 +86,9 @@ const DashboardLayout = () => {
           </div>
         </div>
 
-        <div className="ml-60 w-full py-8 px-14 bg-base-200">
-          <Outlet></Outlet>
+        {/* Main Content */}
+        <div className="w-full md:ml-60 ml-0 pt-8 px-4 md:px-14 bg-base-200 transition-all duration-300 min-h-screen">
+          <Outlet />
         </div>
       </div>
     </div>
