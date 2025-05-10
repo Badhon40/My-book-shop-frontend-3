@@ -2,7 +2,9 @@
 
 An interactive and user-friendly online platform to explore, buy, and manage a collection of books. The application provides a seamless shopping experience, allowing users to browse through various categories, view detailed descriptions, and purchase their favorite books.
 
+![image_alt](https://github.com/Badhon40/My-book-shop-frontend-3/blob/a62bdf8bfa865c8bd13a5604ea606df1ff26eda6/Screenshot%202025-05-10%20005555.png)
 
+URl : (https://book-shop-frontend-weld-tau.vercel.app/)
 
 ## Features
 
@@ -68,11 +70,11 @@ STRIPE_SECRET_KEY=your-stripe-secret-key
 
 ## API Endpoints
 
-* `GET /api/books` - Get all books
-* `GET /api/books/:id` - Get book details by ID
-* `POST /api/auth/register` - Register a new user
-* `POST /api/auth/login` - Log in as an existing user
-* `POST /api/orders` - Place a new order
+* `GET /api/v1/books` - Get all books
+* `GET /api/v1/books/:id` - Get book details by ID
+* `POST /api/v1/auth/register` - Register a new user
+* `POST /api/v1/auth/login` - Log in as an existing user
+* `POST /api/v1/orders` - Place a new order
 
 ## Contributing
 
@@ -86,8 +88,8 @@ This project is licensed under the MIT License.
 
 For any inquiries or feedback, feel free to reach out:
 
-* **Email:** [your-email@example.com](badhonraniroy@gmail.com)
-* **GitHub:** [your-username](https://github.com/Badhon40)
+* **Email:**(badhonraniroy@gmail.com)
+* **GitHub:**(https://github.com/Badhon40)
 
 ---
 
