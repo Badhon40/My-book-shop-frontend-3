@@ -238,7 +238,7 @@ const ManageAdmin = () => {
               Manage Products ({Books?.data?.length})
             </p>
             <Link to={"create-book"}>
-              <button className="bg-[]#4C765E text-white hover:bg-[#4C765E] py-2 px-3 rounded-md">
+              <button className="bg-[#4C765E] text-white hover:bg-[#4C765E] py-2 px-3 rounded-md">
                 Add New Book
               </button>
             </Link>

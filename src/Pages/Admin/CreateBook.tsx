@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useCreateBookMutation } from "../../Redux/Features/Admin/UserManagementApi/bookManagement.api";
+import { ArrowLeft } from "lucide-react";
 
 const CreateBook = () => {
     const navigate = useNavigate();
@@ -56,6 +57,10 @@ const CreateBook = () => {
             options={CategoryOptions}
           />
 
+           <CustomInput name="offers" placeholder="Discout" type="number" />
+          <CustomInput name="publication" placeholder="Publication" type="text" />
+          <CustomInput name="publicationdate" placeholder="Publication Date" type="text" />
+
 
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
@@ -67,8 +72,19 @@ const CreateBook = () => {
             </Button>
           </motion.div>
         </CustomForm>
+
+        <div className="flex justify-center mt-4">
+          <Button
+            onClick={() => navigate("/admin/dashboard")}
+            className="custom-btn"
+            style={{ width: "100%" }}
+          >
+           <ArrowLeft/> Back to Dashboard
+          </Button>
+        </div>
       </motion.div>
     </motion.div>
+    
   );
 };
 
