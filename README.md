@@ -2,7 +2,7 @@
 
 An interactive and user-friendly online platform to explore, buy, and manage a collection of books. The application provides a seamless shopping experience, allowing users to browse through various categories, view detailed descriptions, and purchase their favorite books.
 
-![image_alt](https://github.com/Badhon40/My-book-shop-frontend-3/blob/a62bdf8bfa865c8bd13a5604ea606df1ff26eda6/Screenshot%202025-05-10%20005555.png)
+![image_alt](https://github.com/Badhon40/My-book-shop-frontend-3/blob/19d34c1857dd2e4ab4fd68442b0c558480695b58/Screenshot%202025-05-11%20141447.png)
 
 URl : (https://book-shop-frontend-weld-tau.vercel.app/)
 
