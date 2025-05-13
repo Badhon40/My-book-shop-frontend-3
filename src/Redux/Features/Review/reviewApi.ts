@@ -3,6 +3,13 @@ import { baseApi } from "../../api/baseApi";
 
 export const reviewAPI = baseApi.injectEndpoints({
   endpoints: (build) => ({
+    postReview: build.mutation({
+      query: (data) => ({
+        url: "/reviews",
+        method: "POST",
+        body: data,
+      }),
+    }),
     getReview: build.query({
       query: () => ({
         url: "/reviews",
@@ -18,4 +25,4 @@ export const reviewAPI = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetReviewQuery,useGetSingleBookReviewQuery } = reviewAPI;
+export const { useGetReviewQuery,useGetSingleBookReviewQuery,usePostReviewMutation } = reviewAPI;

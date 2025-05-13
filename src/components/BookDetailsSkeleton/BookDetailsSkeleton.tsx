@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
@@ -11,13 +12,15 @@ import {
 } from "lucide-react";
 import Loader from "../loader/Loader";
 import { useGetSingleBookReviewQuery } from "../../Redux/Features/Review/reviewApi";
-import { useGetSingleBookQuery } from "../../Redux/Features/Admin/UserManagementApi/bookManagement.api";
+import { useGetAllbooksQuery, useGetSingleBookQuery } from "../../Redux/Features/Admin/UserManagementApi/bookManagement.api";
 import { loadStripe } from '@stripe/stripe-js';
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Features/Auth/authSlice";
 import ReviewCard ,{ IReview } from "./ReviewCard";
 import errorImage from "../../assets/4735.jpg"
 import { toast } from "sonner";
+import ReviewPopup from "./ReviewPopUp";
+import BookCard from "../Card/BookCard";
 
 
 const BookDetails = () => {
@@ -28,11 +31,13 @@ const BookDetails = () => {
   const reviewData = review?.data;
   console.log("review ", reviewData);
   const { data: book, isLoading, error } = useGetSingleBookQuery(bookId);
+  const {data : bookAll} = useGetAllbooksQuery(undefined);
 
   //   console.log("Books all", book?.data);
   const [activeTab, setActiveTab] = useState("description");
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   if (isLoading) return <Loader />;
   if (error)
@@ -457,11 +462,12 @@ const BookDetails = () => {
                     <div className="flex items-start mb-4">
                       <img
                         src={
-                          book.authorImage ||
-                          "https://i.ibb.co.com/q3t1CR0Z/360-F-211078110-mttx-Edu3gs-Sb-MKajsy98-E4-M4-E5-RUCiuo-removebg-preview.png"
-                        }
+                          book.authorImage}
                         alt={book?.data.author}
                         className="w-16 h-16 rounded-full object-cover mr-4 border border-gray-200 dark:border-gray-700"
+                        onError={(e) => {
+                          e.currentTarget.src = errorImage;
+                        }}
                       />
                       <div>
                         <h5 className="font-medium text-gray-900 dark:text-white">
@@ -494,7 +500,7 @@ const BookDetails = () => {
                           </span>
                         </div>
                       </div>
-                      <button className="mt-4 md:mt-0 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm">
+                      <button onClick={() => setIsPopupOpen(true)} className="mt-4 md:mt-0 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm">
                         Write a Review
                       </button>
                     </div>
@@ -504,7 +510,7 @@ const BookDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-4">
                       {reviewData.map((review: IReview, index: number) => (
                         <div key={index} className="flex justify-center">
-                          <ReviewCard  review={review}></ReviewCard>
+                          <ReviewCard review={review}></ReviewCard>
                         </div>
                       ))}
                     </div>
@@ -513,9 +519,17 @@ const BookDetails = () => {
                       <p className="text-gray-500 dark:text-gray-400 mb-4">
                         No reviews yet. Be the first to review this book!
                       </p>
-                      <button className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors">
+                      <button onClick={() => setIsPopupOpen(true)} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors">
                         Write a Review
                       </button>
+                      {isPopupOpen && (
+                      <ReviewPopup
+                        bookId={bookId}
+                        onClose={() => setIsPopupOpen(false)}
+                      />
+                    )}
+
+
                     </div>
                   )}
                 </div>
@@ -529,7 +543,19 @@ const BookDetails = () => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
             You May Also Like
           </h2>
-          {/* <SimilarBooks currentBookId={book._id} category={book.category} /> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {
+              bookAll?.length > 0 ? (
+                bookAll.filter((books: any) => books?.data?.category === book?.data?.category).slice(0, 4).map((book: any) => (
+                  <div key={book._id} className="flex justify-center">
+                    <BookCard book={book} />
+                  </div>
+                ))
+              ) : (
+                <p>No books found.</p>
+              )
+            }
+           </div>
         </div>
       </div>
     </div>
