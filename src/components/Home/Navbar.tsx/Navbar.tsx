@@ -80,6 +80,9 @@ const Navbar = () => {
                   />
                 </button>
                 <div className='absolute right-0 mt-2 w-48 origin-top-right bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 dark:bg-gray-800 dark:ring-gray-700'>
+                  <div className='flex items-center px-4 py-2 text-md text-gray-900 '>
+                    {user?.email}
+                  </div>
                  {
                     user?.role === 'admin' ? (
                       <Link

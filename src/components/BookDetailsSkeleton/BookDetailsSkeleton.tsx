@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../Redux/Features/Auth/authSlice";
 import ReviewCard ,{ IReview } from "./ReviewCard";
 import errorImage from "../../assets/4735.jpg"
+import { toast } from "sonner";
 
 
 const BookDetails = () => {
@@ -85,6 +86,7 @@ const BookDetails = () => {
   };
    const makePayment = async () => {
     if (!user) {
+      toast.error("Please login to make a purchase");
       // Redirect to login and remember current location
       navigate("/login");
       return;
