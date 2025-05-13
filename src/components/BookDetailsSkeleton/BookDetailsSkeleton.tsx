@@ -29,9 +29,14 @@ const BookDetails = () => {
     const user = useSelector(selectCurrentUser);
   const { data: review } = useGetSingleBookReviewQuery(bookId);
   const reviewData = review?.data;
-  console.log("review ", reviewData);
+  // console.log("review ", reviewData);
   const { data: book, isLoading, error } = useGetSingleBookQuery(bookId);
   const {data : bookAll} = useGetAllbooksQuery(undefined);
+
+  // console.log(bookAll?.data.length);
+
+  // const bookCategory = bookAll?.data.map((book: any) => book?.category);
+  // console.log("Book category", bookCategory);
 
   //   console.log("Books all", book?.data);
   const [activeTab, setActiveTab] = useState("description");
@@ -522,16 +527,18 @@ const BookDetails = () => {
                       <button onClick={() => setIsPopupOpen(true)} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors">
                         Write a Review
                       </button>
-                      {isPopupOpen && (
+                      
+
+                    </div>
+                  )}
+
+                  {isPopupOpen && (
                       <ReviewPopup
-                        bookId={bookId}
+                        bookId={bookId} 
                         onClose={() => setIsPopupOpen(false)}
                       />
                     )}
 
-
-                    </div>
-                  )}
                 </div>
               )}
             </div>
@@ -543,18 +550,23 @@ const BookDetails = () => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
             You May Also Like
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {
-              bookAll?.length > 0 ? (
-                bookAll.filter((books: any) => books?.data?.category === book?.data?.category).slice(0, 4).map((book: any) => (
-                  <div key={book._id} className="flex justify-center">
-                    <BookCard book={book} />
+                bookAll?.data?.length > 0 ? (
+                  bookAll.data
+                    .filter((allBook: any) => allBook?.category === book?.data?.category)
+                    .slice(0, 4)
+                    .map((book: any) => (
+                      <div key={book._id} className="flex justify-center">
+                        <BookCard book={book} />
+                      </div>
+                    ))
+                ) : (
+                  <div className="flex justify-center items-center">
+                    <p className="text-gray-500 dark:text-gray-400">No similar books found.</p>
                   </div>
-                ))
-              ) : (
-                <p>No books found.</p>
-              )
-            }
+                )
+              }
            </div>
         </div>
       </div>

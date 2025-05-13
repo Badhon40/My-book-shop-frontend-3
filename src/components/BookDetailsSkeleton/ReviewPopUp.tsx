@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { usePostReviewMutation } from "../../Redux/Features/Review/reviewApi"; 
+import { usePostReviewMutation } from "../../Redux/Features/Review/reviewApi";
+
+import { toast } from "sonner";
+
+export interface IReview {
+  bookId: string;
+  name: string;
+  rating: number;
+  reviewMessage: string;
+}
 
 const ReviewPopup = ({
   bookId,
@@ -9,28 +18,32 @@ const ReviewPopup = ({
   onClose: () => void;
 }) => {
   const [reviewMessage, setReviewMessage] = useState("");
+  const [name, setName] = useState("");
   const [rating, setRating] = useState(0);
   const [postReview] = usePostReviewMutation();
 
 
   const handleSubmit = async () => {
-    if (!reviewMessage || rating === 0) {
-      alert("Please provide a rating and a review message.");
+    if (!reviewMessage.trim() || rating === 0) {
+      toast.error("Please provide a valid rating and review message.");
       return;
     }
 
-    const response = await postReview({
-      bookId,
-      reviewMessage,
+    const review: IReview = {
+      bookId: bookId || "",
+      name,
       rating,
-    });
-    if (response.error) {
-      alert("Failed to submit review. Please try again.");
-    } else {
-      alert("Review submitted successfully!");
+      reviewMessage,
+    };
+    try {
+      await postReview(review).unwrap();
+      toast.success("Review submitted successfully!");
       onClose();
+    } catch (error) {
+      console.error("Failed to submit review:", error);
+      toast.error("Failed to submit review");
     }
-    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -38,6 +51,13 @@ const ReviewPopup = ({
         <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">
           Write a Review
         </h2>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Your Name"
+          className="w-full p-3 border rounded-lg mb-4 dark:bg-gray-700 dark:text-white"
+        />
         <textarea
           value={reviewMessage}
           onChange={(e) => setReviewMessage(e.target.value)}

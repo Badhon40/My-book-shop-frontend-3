@@ -8,6 +8,8 @@ const Success = () => {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
+  
+
   const orderPlacedRef = useRef(false); // 👈 persist across renders
 
   useEffect(() => {

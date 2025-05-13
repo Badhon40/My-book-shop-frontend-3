@@ -5,22 +5,21 @@ import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 export interface IReview {
   _id: string;
   bookId: string;
-  name: string;
+  email: string;
   rating: number;
   reviewMessage: string;
-  likeCount: number;
 }
 
 const Reviews = () => {
   const [reviews, setReviews] = useState<IReview[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const reviewData = useGetReviewQuery(undefined);
+  const { data: reviewData } = useGetReviewQuery(undefined);
 
   useEffect(() => {
-    if (reviewData?.data?.success) {
-      setReviews(reviewData.data.data);
+    if (reviewData?.success) {
+      setReviews(reviewData.data);
     }
-  }, [reviewData?.data]);
+  }, [reviewData]);
 
   const nextReview = () => {
     setCurrentIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
@@ -32,6 +31,19 @@ const Reviews = () => {
 
   // For desktop infinite scroll
   const duplicatedReviews = [...reviews, ...reviews];
+
+  const renderStars = (rating: number) => {
+    return Array(5)
+      .fill(0)
+      .map((_, i) => (
+        <Star
+          key={i}
+          size={18}
+          fill={i < rating ? "currentColor" : "none"}
+          className={`${i < rating ? "text-yellow-500" : "text-gray-300"}`}
+        />
+      ));
+  };
 
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900 overflow-hidden">
@@ -51,17 +63,13 @@ const Reviews = () => {
             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-all duration-300">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-[#4C765E] flex items-center justify-center text-white font-bold">
-                  {reviews[currentIndex]?.name.charAt(0).toUpperCase()}
+                  {reviews[currentIndex]?.email.charAt(0).toUpperCase()}
                 </div>
                 <div>
                   <p className="font-semibold text-gray-800 dark:text-gray-100">
-                    {reviews[currentIndex]?.name}
+                    {reviews[currentIndex]?.email}
                   </p>
-                  <div className="flex text-[]#4C765E">
-                    {[...Array(reviews[currentIndex]?.rating)].map((_, i) => (
-                      <Star key={i} size={18} fill="currentColor" />
-                    ))}
-                  </div>
+                  <div className="flex">{renderStars(reviews[currentIndex]?.rating)}</div>
                 </div>
               </div>
               <p className="text-gray-600 dark:text-gray-300">
@@ -69,19 +77,19 @@ const Reviews = () => {
               </p>
             </div>
           )}
-          
+
           <div className="flex justify-center mt-6 gap-4">
             <button
               onClick={prevReview}
               className="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-green-50 dark:hover:bg-gray-700 transition-colors"
             >
-              <ChevronLeft className="w-5 h-5 text-[]#4C765E" />
+              <ChevronLeft className="w-5 h-5 text-green-600" />
             </button>
             <button
               onClick={nextReview}
               className="p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-green-50 dark:hover:bg-gray-700 transition-colors"
             >
-              <ChevronRight className="w-5 h-5 text-[]#4C765E" />
+              <ChevronRight className="w-5 h-5 text-green-600" />
             </button>
           </div>
         </div>
@@ -90,24 +98,20 @@ const Reviews = () => {
         <div className="hidden md:block relative overflow-hidden">
           <div className="py-4">
             <div className="animate-scroll-horizontal flex gap-8 w-max">
-              {duplicatedReviews.map(({ _id, reviewMessage, name, rating }, idx) => (
+              {duplicatedReviews.map(({ _id, reviewMessage, email, rating }, idx) => (
                 <div
                   key={`${_id}-${idx}`}
                   className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg min-w-[350px] max-w-[350px] transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-r from-green-400 to-[#4C765E] flex items-center justify-center text-white text-xl font-bold">
-                      {name.charAt(0).toUpperCase()}
+                      {email.charAt(0).toUpperCase()}
                     </div>
                     <div>
                       <p className="font-semibold text-lg text-gray-800 dark:text-gray-100">
-                        {name}
+                        {email}
                       </p>
-                      <div className="flex text-[]#4C765E mt-1">
-                        {[...Array(rating)].map((_, i) => (
-                          <Star key={i} size={20} fill="currentColor" />
-                        ))}
-                      </div>
+                      <div className="flex mt-1">{renderStars(rating)}</div>
                     </div>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
@@ -117,13 +121,13 @@ const Reviews = () => {
               ))}
             </div>
           </div>
-          
+
           {/* Gradient fade effect */}
           <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gray-50 to-transparent dark:from-gray-900 z-10"></div>
           <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-gray-50 to-transparent dark:from-gray-900 z-10"></div>
         </div>
 
-        <style >{`
+        <style>{`
           .animate-scroll-horizontal {
             animation: scrollLeft 20s linear infinite;
           }
