@@ -5,7 +5,7 @@ import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 export interface IReview {
   _id: string;
   bookId: string;
-  email: string;
+  name: string;
   rating: number;
   reviewMessage: string;
 }
@@ -63,11 +63,11 @@ const Reviews = () => {
             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-all duration-300">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-[#4C765E] flex items-center justify-center text-white font-bold">
-                  {reviews[currentIndex]?.email.charAt(0).toUpperCase()}
+                  {reviews[currentIndex]?.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
                   <p className="font-semibold text-gray-800 dark:text-gray-100">
-                    {reviews[currentIndex]?.email}
+                    {reviews[currentIndex]?.name}
                   </p>
                   <div className="flex">{renderStars(reviews[currentIndex]?.rating)}</div>
                 </div>
@@ -98,18 +98,18 @@ const Reviews = () => {
         <div className="hidden md:block relative overflow-hidden">
           <div className="py-4">
             <div className="animate-scroll-horizontal flex gap-8 w-max">
-              {duplicatedReviews.map(({ _id, reviewMessage, email, rating }, idx) => (
+              {duplicatedReviews.map(({ _id, reviewMessage, name, rating }, idx) => (
                 <div
                   key={`${_id}-${idx}`}
                   className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg min-w-[350px] max-w-[350px] transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-r from-green-400 to-[#4C765E] flex items-center justify-center text-white text-xl font-bold">
-                      {email.charAt(0).toUpperCase()}
+                      {name.charAt(0).toUpperCase()}
                     </div>
                     <div>
                       <p className="font-semibold text-lg text-gray-800 dark:text-gray-100">
-                        {email}
+                        {name}
                       </p>
                       <div className="flex mt-1">{renderStars(rating)}</div>
                     </div>

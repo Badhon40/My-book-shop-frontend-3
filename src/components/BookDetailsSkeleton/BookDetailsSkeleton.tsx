@@ -26,7 +26,7 @@ import BookCard from "../Card/BookCard";
 const BookDetails = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
-    const user = useSelector(selectCurrentUser);
+  const user = useSelector(selectCurrentUser);
   const { data: review } = useGetSingleBookReviewQuery(bookId);
   const reviewData = review?.data;
   // console.log("review ", reviewData);
@@ -132,7 +132,6 @@ const BookDetails = () => {
     console.log("payment result", result);
 
     if ((await result)?.error) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       console.log((await (result as any)).error);
     }
   };
@@ -553,7 +552,7 @@ const BookDetails = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {
                 bookAll?.data?.length > 0 ? (
-                  bookAll.data
+                  bookAll?.data
                     .filter((allBook: any) => allBook?.category === book?.data?.category)
                     .slice(0, 4)
                     .map((book: any) => (

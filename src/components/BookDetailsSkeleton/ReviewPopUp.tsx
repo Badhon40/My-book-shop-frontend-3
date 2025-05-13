@@ -29,9 +29,9 @@ const ReviewPopup = ({
       return;
     }
 
-    const review: IReview = {
+      const review: IReview = {
       bookId: bookId || "",
-      name,
+      name: name || "Anonymous", // Fallback to "Anonymous" if name is empty
       rating,
       reviewMessage,
     };
