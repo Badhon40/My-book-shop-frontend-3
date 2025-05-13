@@ -83,13 +83,13 @@ const Navbar = () => {
                  {
                     user?.role === 'admin' ? (
                       <Link
-                        to='/admin'
+                        to='/admin/dashboard'
                         className='block px-4 py-2 text-md text-gray-700 hover:bg-[#51c081] hover:text-white dark:text-gray-300 dark:hover:bg-[#4C765E] dark:hover:text-white'
                       >
                         Dashboard
                       </Link>
                     ) : (
-                      <Link to="/user"
+                      <Link to="/user/dashboard"
                         className='block px-4 py-2 text-md text-gray-700 hover:bg-[#51c081] hover:text-white dark:text-gray-300 dark:hover:bg-[#4C765E] dark:hover:text-white'
                       >
                         Profile

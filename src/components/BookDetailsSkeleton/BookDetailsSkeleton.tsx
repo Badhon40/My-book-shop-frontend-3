@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   Star,
   Heart,
@@ -21,6 +21,7 @@ import errorImage from "../../assets/4735.jpg"
 
 const BookDetails = () => {
   const { bookId } = useParams();
+  const navigate = useNavigate();
     const user = useSelector(selectCurrentUser);
   const { data: review } = useGetSingleBookReviewQuery(bookId);
   const reviewData = review?.data;
@@ -83,12 +84,12 @@ const BookDetails = () => {
     }
   };
    const makePayment = async () => {
-    // if (!user) {
-    //   // Redirect to login and remember current location
-    //   Navigate("/login", { state: { from: location } });
-    //   return;
-    // }
-    // setLoading(true);
+    if (!user) {
+      // Redirect to login and remember current location
+      navigate("/login");
+      return;
+    }
+  
     const stripe = await loadStripe("pk_test_51RL6aZPBoYcHumd6yk72rs5nrP1ukQeyFvDDZuFZBoTD3iWUsr2YRhDug3CFVDyBMbJ8CnejAlQ2LDiqVCkcRbJn00mcOtt9XR");
 
     const body = {
@@ -131,7 +132,7 @@ const BookDetails = () => {
       {/* Back button */}
       <div className="container mx-auto px-4 sm:px-6 py-6">
         <Link
-          to="/books"
+          to="/allbooks"
           className="inline-flex items-center text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 transition-colors"
         >
           <ChevronLeft size={20} className="mr-1" />
@@ -335,8 +336,19 @@ const BookDetails = () => {
                   Add to Cart
                 </button>
                 {
-                  user ? (
+                  user?.role === "admin" ? (
                     <button
+                onClick={makePayment}
+                  className={`flex-1 py-3 px-6 rounded-lg font-medium transition-colors ${
+                    book?.data?.inStock
+                      ? "border border-green-600 text-green-600 dark:text-green-400 dark:border-green-400 hover:bg-green-50 dark:hover:bg-gray-700"
+                      : "border border-gray-300 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                  }`}
+                  disabled
+                >
+                  Admin can't buy
+                </button>) : (
+                  <button
                 onClick={makePayment}
                   className={`flex-1 py-3 px-6 rounded-lg font-medium transition-colors ${
                     book?.data?.inStock
@@ -346,17 +358,6 @@ const BookDetails = () => {
                   disabled={!book?.data?.inStock}
                 >
                   Buy Now
-                </button>) : (
-                  <button
-                onClick={makePayment}
-                  className={`flex-1 py-3 px-6 rounded-lg font-medium transition-colors ${
-                    book?.data?.inStock
-                      ? "border border-green-600 text-green-600 dark:text-green-400 dark:border-green-400 hover:bg-green-50 dark:hover:bg-gray-700"
-                      : "border border-gray-300 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                  }`}
-                  disabled
-                >
-                  Only for registered users
                 </button>
                 )
                 }

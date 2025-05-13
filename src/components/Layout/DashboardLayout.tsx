@@ -6,7 +6,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { useAppSelector } from "../../Redux/hook";
 import logo from "../../assets/logo.png";
 import { useState } from "react";
-import { MenuIcon, X } from "lucide-react";
+import { AlignJustify, X } from "lucide-react";
 
 const userRole = {
   ADMIN: "admin",
@@ -33,9 +33,9 @@ const DashboardLayout = () => {
     <div className="max-w-[2520px] mx-auto">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden block p-2 bg-green-500 text-white fixed top-4 left-4 z-50 rounded-md"
+        className="md:hidden block p-2  text-black fixed top-4 left-4 z-50 rounded-md"
       >
-        {isOpen ? 'Close' : 'Menu'}
+        {isOpen ? <X/> : <AlignJustify />}
       </button>
 
       <div className="flex">
@@ -65,9 +65,9 @@ const DashboardLayout = () => {
               ))}
                    <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden block p-2 bg-green-500 text-white fixed top-4 left-4 z-50 rounded-md"
+              className="md:hidden block p-2 text-black fixed top-4 left-4 z-50 rounded-md"
             >
-              {isOpen ? <X /> : <MenuIcon />}
+              {isOpen ? <X /> : <AlignJustify />}
             </button>
             </ul>
 

@@ -14,6 +14,8 @@ export interface IUser {
   _id: string;
   email: string;
   name: string;
+  phone: string;
+  address: string;
   // Add more fields if needed
 }
 export interface IOrder {
@@ -143,7 +145,21 @@ const UserDashboard = () => {
                 <form
                   onSubmit={handleSubmit(handleUpdatePassword)}
                   className="fieldset"
-                >
+                > 
+                  <label className="fieldset-label">Full Name</label>
+                  <input
+                    {...register("name")}
+                    type="text"
+                    className=" px-4 py-2 border rounded-sm"
+                    placeholder="Full Name"
+                  />
+                  <label className="fieldset-label">Phone Number</label>
+                  <input
+                    {...register("phone")}
+                    type="text"
+                    className=" px-4 py-2 border rounded-sm"
+                    placeholder="Phone Number"
+                  />
                   <label className="fieldset-label">Email</label>
                   <input
                     {...register("email")}
@@ -151,6 +167,13 @@ const UserDashboard = () => {
                     className=" px-4 py-2 border rounded-sm"
                     placeholder="Email"
                     defaultValue={userEmail}
+                  />
+                  <label className="fieldset-label">Address</label>
+                  <input
+                    {...register("address")}
+                    type="text"
+                    className=" px-4 py-2 border rounded-sm"
+                    placeholder="Address"
                   />
                   <label className="fieldset-label">Old Password</label>
                   <input
@@ -171,7 +194,7 @@ const UserDashboard = () => {
                     type="submit"
                     className="bg-green-500 text-white hover:bg-green-600 w-full text-center font-semibold py-2 rounded-lg mt-3"
                   >
-                    Login
+                    Update Now
                   </button>
                 </form>
               </div>
