@@ -25,7 +25,7 @@ const NewArrival = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 rounded-md gap-6">
-        {data?.data.slice(1, 6).map((book: any) => (
+        {data?.data.slice(1, 9).map((book: any) => (
           <BookCard key={book._id} book={book} />
         ))}
       </div>

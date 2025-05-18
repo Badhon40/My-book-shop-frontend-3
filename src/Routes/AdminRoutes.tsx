@@ -1,22 +1,23 @@
 import AdminDashboard from "../Pages/Admin/AdminDashboard";
 import UpdateBook from "../Pages/Admin/UpdateBook";
 import CreateBook from "../Pages/Admin/CreateBook";
+import AdminProduct from "../Pages/Admin/AdminProduct";
 
 const AdminRoutes = [
   {
-    index: true,
-    name: "Dashboard",
-    element: <AdminDashboard />,
+    path:"dashboard",
+    name: "Admin Dashboard",
+    element:<AdminProduct />,
   },
   {
-    path: "dashboard",
-    name: "Dashboard",
+    path: "products",
+    name: "Product Management",
     element: <AdminDashboard />,
   },
 
   {
     element: <CreateBook />,
-    path: "/admin/dashboard/create-book",
+    path: "/admin/products/create-book",
   },
   {
     element: <UpdateBook />,

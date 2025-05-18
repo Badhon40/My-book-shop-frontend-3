@@ -17,6 +17,14 @@ export const userAPI = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    // all register users
+    getAllUsers: build.query({
+      query: () => ({
+        url: "/users/get-all-users",
+        method: "GET",
+      }),
+    }),
+
     updatePassword: build.mutation<void, { email:string, oldPassword: string; newPassword: string }>({
       query: (data) => ({
         url: "/auth/update-password",
@@ -28,4 +36,4 @@ export const userAPI = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation ,useUpdatePasswordMutation } = userAPI;
+export const { useLoginMutation, useRegisterMutation ,useUpdatePasswordMutation, useGetAllUsersQuery } = userAPI;
